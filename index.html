@@ -7,10 +7,45 @@
   <meta name="description" content="Promenades sonores dans la France de 1852 à 1870, de la cour de l'Impératrice Eugénie aux grands boulevards d'Haussmann." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+
+  <!-- ============ LOADER — ouverture sur le logo ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__panel loader__panel--l"></div>
+    <div class="loader__panel loader__panel--r"></div>
+    <div class="loader__brand">
+      <svg class="loader__logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
+        <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <g fill="currentColor"><rect x="19" y="35" width="5" height="15"/><rect x="27" y="27" width="5" height="23"/><rect x="35" y="19" width="5" height="31"/><rect x="43" y="29" width="5" height="21"/></g>
+        <text class="w" x="60" y="31" font-size="18">mes petites</text>
+        <text class="w" x="60" y="49" font-size="18" letter-spacing="0.5">visites</text>
+      </svg>
+      <div class="loader__rule"></div>
+      <p class="loader__sub">Le Second Empire</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var el = document.getElementById("loader");
+      if (!el) return;
+      var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (sessionStorage.getItem("mpv_seen")) { el.parentNode && el.parentNode.removeChild(el); return; }
+      var done = false;
+      function finish() {
+        if (done) return; done = true;
+        el.classList.add("is-open");
+        try { sessionStorage.setItem("mpv_seen", "1"); } catch (e) {}
+        setTimeout(function () { el.classList.add("is-done"); el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 1050);
+      }
+      el.addEventListener("click", finish); // permet de passer
+      var minT = reduce ? 350 : 1800, start = Date.now();
+      function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
+      if (document.readyState === "complete") go(); else window.addEventListener("load", go);
+    })();
+  </script>
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5Z"/></symbol>

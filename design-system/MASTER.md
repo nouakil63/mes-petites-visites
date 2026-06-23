@@ -11,15 +11,20 @@
 - **Plateforme** : web responsive (mobile-first), intégrable WordPress/Elementor.
 
 ## 2. Direction artistique
-**Parti pris : la salle de musée.** Le tableau de Winterhalter est *accroché* dans un
-**cadre doré sur un mur de soie émeraude**, accompagné d'un **cartel** (étiquette
-de musée). On ne déforme jamais l'œuvre, on l'**encadre** — ce qui flatte aussi une
-image en définition modeste. Cohérent avec la marque « mes petites visites » : on
-*visite* un tableau.
+**Parti pris : la galerie claire (style du site) + l'ADN musée.** La page est
+**lumineuse, crème, aérée** comme mes petites visites ; on y greffe les codes du
+musée : le tableau de Winterhalter est *accroché* dans un **cadre doré**, sous un
+**cartel** (étiquette). On ne déforme jamais l'œuvre, on l'**encadre** — ce qui
+flatte une image en définition modeste. Une seule section, « À l'écoute », passe en
+**émeraude sombre** (la « salle d'écoute ») pour le rythme et la profondeur.
+Cohérent avec la marque : on *visite* un tableau.
 
-- **Style** : éditorial luxe, plat + détails fins (dorure, filets, cartel laiton).
+- **Ouverture** : un **loader au logo** (deux panneaux ivoire qui s'écartent comme
+  des portes de salon) introduit la page. Une fois par session, passable au clic,
+  coupé si `prefers-reduced-motion`.
+- **Style** : éditorial luxe clair, plat + détails fins (dorure, filets, cartel).
   Pas de glassmorphism, pas de néon, pas de dégradés tape-à-l'œil.
-- **Effets** : cadre doré biseauté, ombre portée douce, spot muséal, filets d'or 1px.
+- **Effets** : cadre doré biseauté, ombre portée douce, lumière de galerie, filets 1px.
 
 ## 3. Couleurs (échantillonnées sur le tableau + charte du site)
 | Token | Hex | Usage |
@@ -41,8 +46,8 @@ image en définition modeste. Cohérent avec la marque « mes petites visites »
 Contraste vérifié AA : ivoire/vert ≥ 7:1, ink/paper ≥ 12:1, gold-dark/paper ≥ 4.5:1.
 
 ## 4. Typographie
-- **Display** : *Playfair Display* (Didone à fort contraste — registre Second Empire,
-  gravures et planches de mode). 600/700, italique pour les titres d'épisode.
+- **Display** : *Fraunces* (sérif moderne à contraste doux, proche du caractère de
+  Quiche Display du site). 500/600/700, italique pour les titres d'épisode.
 - **Citation** : *Cormorant Garamond* italique (manifeste).
 - **Texte / labels** : *Jost* (géométrique fin, proche de Champagne Limousines).
 - **Échelle** : 12 · 14 · 16 · 20 · 28 · 40 · 64 (clamp pour le fluide).
