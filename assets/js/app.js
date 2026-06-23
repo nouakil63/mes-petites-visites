@@ -22,15 +22,18 @@
   }
   let episodes = loadEpisodes();
 
-  /* ---------- tableau (multi-extensions) ---------- */
-  const painting = new Image();
+  /* ---------- tableau (image partagée + multi-extensions) ---------- */
+  // On utilise de vrais <img> (pas de url() dans une variable CSS : bug Safari).
+  const painting = new Image();                 // sert au canvas (RingWave)
+  let PAINT_SRC = "assets/img/eugenie.jpg";
+  painting.src = PAINT_SRC;
   (function resolve(i) {
     const names = ["assets/img/eugenie.jpg", "assets/img/eugenie.jpeg", "assets/img/eugenie.png", "assets/img/eugenie.webp"];
     if (i >= names.length) return;
     const probe = new Image();
     probe.onload = () => {
-      painting.src = names[i];
-      document.documentElement.style.setProperty("--painting", 'url("' + names[i] + '")');
+      PAINT_SRC = names[i]; painting.src = names[i];
+      document.querySelectorAll("[data-painting]").forEach((img) => { img.src = names[i]; img.style.display = ""; });
     };
     probe.onerror = () => resolve(i + 1);
     probe.src = names[i];
@@ -52,9 +55,9 @@
   function setIcon(btn, name) { const u = btn && btn.querySelector("use"); if (u) { u.setAttribute("href", "#" + name); try { u.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#" + name); } catch (e) {} } }
 
   /* ---------- grille ---------- */
-  function coverStyle(ep) {
-    const pos = (ep.pos == null ? 50 : ep.pos) + "%";
-    return 'background-image: var(--painting, none); background-position: ' + pos + ' 28%;';
+  function coverImg(ep) {
+    const pos = (ep.pos == null ? 50 : ep.pos);
+    return '<img class="card__img" data-painting src="' + PAINT_SRC + '" alt="" loading="lazy" onerror="this.style.display=\'none\'" style="object-position:' + pos + '% 30%">';
   }
   function buildCard(ep, idx, isNew) {
     const li = document.createElement("article");
@@ -63,7 +66,7 @@
     li.setAttribute("aria-label", "Écouter : " + ep.title);
     li.dataset.index = idx;
     li.innerHTML =
-      '<div class="card__cover" style="' + coverStyle(ep) + '">' +
+      '<div class="card__cover">' + coverImg(ep) +
         '<span class="card__cat">' + ep.category + '</span>' +
         '<span class="card__dur">' + ep.duration + '</span>' +
         '<span class="card__play"><svg class="ico"><use href="#i-play"/></svg></span>' +
@@ -88,7 +91,6 @@
   /* ---------- à la une ---------- */
   function renderFeatured() {
     const ep = episodes[0];
-    $("#feat-cover").style.cssText = coverStyle(ep);
     $("#feat-cat").textContent = "Épisode " + ep.number + " · " + ep.category;
     $("#feat-title").textContent = ep.title;
     $("#feat-desc").textContent = ep.description;
@@ -114,7 +116,6 @@
     $("#m-desc").textContent = ep.description;
     $("#bar-title").textContent = ep.title;
     $("#bar-cat").textContent = "Épisode " + ep.number + " · " + ep.category;
-    $("#bar-thumb").style.cssText = coverStyle(ep);
     ring.setImage(painting);
 
     $$(".card").forEach((c) => c.classList.toggle("is-playing", +c.dataset.index === idx));

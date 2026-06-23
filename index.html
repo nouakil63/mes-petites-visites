@@ -75,7 +75,7 @@
 
   <!-- ============ HERO ============ -->
   <header class="hero">
-    <div class="hero__art" aria-hidden="true"></div>
+    <img class="hero__img" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855" onerror="this.style.display='none'" />
     <div class="hero__veil" aria-hidden="true"></div>
     <div class="hero__inner">
       <p class="hero__eyebrow">Série audio · mes petites visites</p>
@@ -96,7 +96,7 @@
   <!-- ============ À LA UNE ============ -->
   <section class="featured" id="serie">
     <div class="featured__card reveal">
-      <div class="featured__cover" id="feat-cover"></div>
+      <div class="featured__cover"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" /></div>
       <div class="featured__body">
         <p class="eyebrow" id="feat-cat">Épisode 1 · Cour & étiquette</p>
         <h2 class="featured__title" id="feat-title">Les murmures du salon vert</h2>
@@ -128,7 +128,8 @@
       <p class="section-note">Cliquez sur les pastilles pour lire l'œuvre — chaque détail nourrit un épisode.</p>
     </div>
     <div class="tableau__stage reveal">
-      <div class="tableau__art" role="img" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855">
+      <div class="tableau__art" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855">
+        <img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855" onerror="this.style.display='none'" />
         <button class="hotspot" style="left:50%; top:54%" data-title="La robe émeraude" data-cap="Au centre, l'Impératrice : la seule en vert profond. Une couleur de souveraineté qui ancre toute la composition autour d'elle." aria-label="La robe émeraude"></button>
         <button class="hotspot" style="left:24%; top:78%" data-title="Les fleurs du premier plan" data-cap="Chèvrefeuille, lilas et violettes ne sont pas décoratifs : ce sont des allégories de fidélité et de mémoire, signées par le peintre." aria-label="Les fleurs"></button>
         <button class="hotspot" style="left:75%; top:46%" data-title="Le ruban bleu" data-cap="Le bleu des rubans répond au ciel : Winterhalter orchestre une harmonie de cour, chaque dame placée selon un protocole strict." aria-label="Le ruban bleu"></button>
@@ -206,7 +207,7 @@
   <aside class="bar" id="bar">
     <div class="bar__fill" id="bar-fill"></div>
     <button class="bar__open" id="bar-open" aria-label="Ouvrir le lecteur">
-      <span class="bar__thumb" id="bar-thumb"></span>
+      <span class="bar__thumb"><img data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" /></span>
       <span class="bar__info"><span class="bar__title" id="bar-title">—</span><span class="bar__cat" id="bar-cat">—</span></span>
       <svg class="ico bar__chev"><use href="#i-chev"/></svg>
     </button>
