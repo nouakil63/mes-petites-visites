@@ -7,12 +7,11 @@
   <meta name="description" content="Promenades sonores dans la France de 1852 à 1870, de la cour de l'Impératrice Eugénie aux grands boulevards d'Haussmann." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
 
-  <!-- icônes réutilisables -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5Z"/></symbol>
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></symbol>
@@ -34,20 +33,29 @@
     </nav>
   </header>
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO — salle de musée ============ -->
   <section class="hero">
-    <div class="hero__panel">
+    <div class="hero__text">
       <p class="label hero__kicker">Un podcast · mes petites visites</p>
-      <h1 class="hero__title">Le Second<br>Empire<span class="yr">1852 — 1870</span></h1>
+      <h1 class="hero__title">Le Second<br>Empire<span class="hero__years">1852 — 1870</span></h1>
       <p class="hero__dek">Promenades sonores de la cour de l'Impératrice Eugénie aux grands boulevards d'Haussmann.</p>
-      <button class="listen hero__cta" id="hero-listen" type="button">
-        <span class="listen__disc"><svg class="ico"><use href="#i-play"/></svg></span>
-        <span class="listen__txt" id="hero-listen-txt">Écouter l'épisode 1</span>
+      <button class="btn-listen" id="hero-listen" type="button">
+        <span class="btn-listen__disc"><svg class="ico"><use href="#i-play"/></svg></span>
+        <span class="btn-listen__txt" id="hero-listen-txt">Écouter l'épisode 1</span>
       </button>
     </div>
-    <div class="hero__art" role="img" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855">
-      <p class="hero__credit">Franz Xaver Winterhalter, <em>L'Impératrice Eugénie entourée de ses dames d'honneur</em>, 1855</p>
-    </div>
+
+    <figure class="hero__art">
+      <div class="artframe">
+        <div class="artframe__liner">
+          <div class="artframe__art" role="img" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855"></div>
+        </div>
+      </div>
+      <figcaption class="cartel">
+        <span class="cartel__title">L'Impératrice Eugénie entourée de ses dames d'honneur</span>
+        <span class="cartel__meta">Franz Xaver Winterhalter · 1855 · huile sur toile</span>
+      </figcaption>
+    </figure>
   </section>
 
   <!-- ============ MANIFESTE ============ -->
@@ -69,9 +77,9 @@
         <h2 class="feature__title" id="feature-title">La cour de l'Impératrice Eugénie</h2>
         <p class="feature__meta" id="feature-meta">Épisode 1 · 32 min</p>
         <p class="feature__dek" id="feature-dek">Dans le salon vert des Tuileries : l'étiquette, les dames d'honneur et la grâce d'une souveraine qui inspira Winterhalter.</p>
-        <button class="listen" id="feature-listen" type="button">
-          <span class="listen__disc"><svg class="ico"><use href="#i-play"/></svg></span>
-          <span class="listen__txt">Écouter l'épisode</span>
+        <button class="btn-listen" id="feature-listen" type="button">
+          <span class="btn-listen__disc"><svg class="ico"><use href="#i-play"/></svg></span>
+          <span class="btn-listen__txt">Écouter l'épisode</span>
         </button>
       </div>
     </div>

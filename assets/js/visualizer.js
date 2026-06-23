@@ -136,15 +136,15 @@
       const disc = R * 0.56; // rayon du médaillon central
 
       // ondes concentriques sur les pics de voix
-      if (!REDUCED && level > 0.40 && t - this._lastBeat > 0.16) {
-        this.ripples.push({ r: disc, a: 0.45 }); this._lastBeat = t;
+      if (!REDUCED && level > 0.40 && t - this._lastBeat > 0.18) {
+        this.ripples.push({ r: disc, a: 0.38 }); this._lastBeat = t;
       }
       for (let i = this.ripples.length - 1; i >= 0; i--) {
         const rp = this.ripples[i];
-        rp.r += R * 0.011; rp.a -= 0.011;
+        rp.r += R * 0.010; rp.a -= 0.010;
         if (rp.a <= 0 || rp.r > R * 1.18) { this.ripples.splice(i, 1); continue; }
         ctx.beginPath(); ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = this._rgba(this.palette.ring, rp.a); ctx.lineWidth = 1.4 * dpr; ctx.stroke();
+        ctx.strokeStyle = this._rgba(this.palette.ring, rp.a); ctx.lineWidth = 1.2 * dpr; ctx.stroke();
       }
 
       // lueur
@@ -156,7 +156,7 @@
 
       // égaliseur en couronne
       const inner = disc + R * 0.03;
-      const maxBar = R * 0.36;
+      const maxBar = R * 0.31;
       for (let i = 0; i < this.bars; i++) {
         const ang = (i / this.bars) * Math.PI * 2 - Math.PI / 2;
         const len = R * 0.02 + spec[i] * maxBar;
@@ -165,7 +165,7 @@
         const lg = ctx.createLinearGradient(x1, y1, x2, y2);
         lg.addColorStop(0, this.palette.bar1); lg.addColorStop(1, this.palette.bar2);
         ctx.strokeStyle = lg; ctx.lineCap = "round";
-        ctx.lineWidth = Math.max(1.4 * dpr, (Math.PI * 2 * inner) / this.bars * 0.46);
+        ctx.lineWidth = Math.max(1.3 * dpr, (Math.PI * 2 * inner) / this.bars * 0.38);
         ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
       }
 
