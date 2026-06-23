@@ -11,20 +11,21 @@
 - **Plateforme** : web responsive (mobile-first), intégrable WordPress/Elementor.
 
 ## 2. Direction artistique
-**Parti pris : la galerie claire (style du site) + l'ADN musée.** La page est
-**lumineuse, crème, aérée** comme mes petites visites ; on y greffe les codes du
-musée : le tableau de Winterhalter est *accroché* dans un **cadre doré**, sous un
-**cartel** (étiquette). On ne déforme jamais l'œuvre, on l'**encadre** — ce qui
-flatte une image en définition modeste. Une seule section, « À l'écoute », passe en
-**émeraude sombre** (la « salle d'écoute ») pour le rythme et la profondeur.
-Cohérent avec la marque : on *visite* un tableau.
+**Parti pris : la cinémathèque sombre & premium** (façon plateforme d'écoute haut
+de gamme). Fond profond, dorures, le tableau de Winterhalter en pièce maîtresse
+(hero plein cadre, pochettes recadrées). Palette or + émeraude prélevée sur l'œuvre.
 
-- **Ouverture** : un **loader au logo** (deux panneaux ivoire qui s'écartent comme
-  des portes de salon) introduit la page. Une fois par session, passable au clic,
-  coupé si `prefers-reduced-motion`.
-- **Style** : éditorial luxe clair, plat + détails fins (dorure, filets, cartel).
-  Pas de glassmorphism, pas de néon, pas de dégradés tape-à-l'œil.
-- **Effets** : cadre doré biseauté, ombre portée douce, lumière de galerie, filets 1px.
+- **Ouverture** : un **loader au logo** (logo + filet d'or + « Le Second Empire »)
+  qui se fond/zoome dans la page. Une fois par session, passable au clic, coupé si
+  `prefers-reduced-motion`.
+- **Pop-up d'épisode** : cliquer sur un épisode ouvre une **pochette animée au rythme
+  de la parole** — ondes concentriques + le tableau **découpé en barres verticales**
+  qui dansent avec la voix (RingWave), inspiré de Napoleonica. Lecteur réduit (barre)
+  quand le pop-up est fermé.
+- **Sections bespoke** (anti-IA) : « Le tableau décrypté » avec pastilles cliquables
+  sur l'œuvre, « À la une », « À propos ».
+- **Style** : premium sombre, plat + détails fins (filets d'or, chips, ombres douces
+  cohérentes). Pas de glassmorphism gratuit, pas de néon.
 
 ## 3. Couleurs (échantillonnées sur le tableau + charte du site)
 | Token | Hex | Usage |
@@ -46,8 +47,8 @@ Cohérent avec la marque : on *visite* un tableau.
 Contraste vérifié AA : ivoire/vert ≥ 7:1, ink/paper ≥ 12:1, gold-dark/paper ≥ 4.5:1.
 
 ## 4. Typographie
-- **Display** : *Fraunces* (sérif moderne à contraste doux, proche du caractère de
-  Quiche Display du site). 500/600/700, italique pour les titres d'épisode.
+- **Display / art** : *Playfair Display* (titres, pochettes — touche éditoriale).
+- **UI / texte** : *Inter* (navigation, contrôles, descriptions — lisibilité).
 - **Citation** : *Cormorant Garamond* italique (manifeste).
 - **Texte / labels** : *Jost* (géométrique fin, proche de Champagne Limousines).
 - **Échelle** : 12 · 14 · 16 · 20 · 28 · 40 · 64 (clamp pour le fluide).

@@ -1,30 +1,20 @@
 /* =================================================================
    visualizer.js — l'animation « au rythme de la parole »
    -----------------------------------------------------------------
-   Le tableau (ou son détail) est serti dans un médaillon d'or au
-   centre ; autour, des ondes concentriques naissent sur les pics de
-   voix et un égaliseur en couronne suit le spectre. Inspiré du
-   procédé de l'exemple Napoleonica, transposé dans la palette du
-   tableau de Winterhalter.
-
    AudioEngine : spectre réel via Web Audio API si un fichier joue,
-   sinon une cadence de parole simulée pour que tout reste vivant.
+                 sinon cadence de parole simulée (la maquette s'anime
+                 quand même).
+   RingWave    : la pochette animée du pop-up. Ondes concentriques en
+                 fond + le tableau découpé en barres verticales qui
+                 dansent avec la voix (procédé inspiré de Napoleonica,
+                 transposé dans la palette du tableau).
    ================================================================= */
 
 (function () {
   "use strict";
-
   const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Harmonies prélevées sur le tableau (émeraude, or, rose, ruban bleu, ivoire)
-  const PALETTES = [
-    { ring: "#C9A968", bar1: "#2C7A63", bar2: "#C9A968", glow: "#1F5C4D" },
-    { ring: "#C9A968", bar1: "#5B7FA6", bar2: "#C9A968", glow: "#234a3c" },
-    { ring: "#C9A968", bar1: "#D38C8C", bar2: "#C9A968", glow: "#2C7A63" },
-    { ring: "#C9A968", bar1: "#2C7A63", bar2: "#F1E7CF", glow: "#1F5C4D" }
-  ];
-
-  /* ---------- AudioEngine (instance partagée) ---------- */
+  /* ---------------- AudioEngine (partagé) ---------------- */
   class AudioEngine {
     constructor(audioEl) {
       this.audio = audioEl;
@@ -50,19 +40,16 @@
       if (!this.ctx || this.connected) return;
       try {
         this.source = this.ctx.createMediaElementSource(this.audio);
-        this.source.connect(this.analyser);
-        this.analyser.connect(this.ctx.destination);
+        this.source.connect(this.analyser); this.analyser.connect(this.ctx.destination);
         this.connected = true;
       } catch (e) {}
     }
     resume() { if (this.ctx && this.ctx.state === "suspended") this.ctx.resume(); }
-
     sample(count) {
       const now = performance.now();
       const dt = Math.min(0.05, (now - this._last) / 1000);
       this._last = now; this._t += dt;
-      const out = new Float32Array(count);
-      let real = false;
+      const out = new Float32Array(count); let real = false;
       if (this.analyser && this.playing && !this.audio.paused) {
         this.analyser.getByteFrequencyData(this.bins);
         let sum = 0; for (let i = 0; i < this.bins.length; i++) sum += this.bins[i];
@@ -75,7 +62,7 @@
       if (!real) this._simulate(out, count);
       for (let i = 0; i < count; i++) {
         const s = this._smooth[i] || 0;
-        this._smooth[i] = s + (out[i] - s) * (real ? 0.5 : 0.25);
+        this._smooth[i] = s + (out[i] - s) * (real ? 0.5 : 0.28);
         out[i] = this._smooth[i];
       }
       return out;
@@ -86,12 +73,11 @@
       const breath = 0.5 + 0.5 * Math.sin(t * 2 * Math.PI * 0.45 + 1.1);
       const gate = Math.max(0, breath - 0.2);
       let env = syll * gate;
-      env = idle ? 0.10 + env * 0.08 : 0.22 + env * 0.78;
+      env = idle ? 0.12 + env * 0.10 : 0.24 + env * 0.76;
       for (let i = 0; i < count; i++) {
         const f = i / count;
-        const shape = Math.exp(-f * 2.4) * (1 + 0.6 * Math.exp(-Math.pow((f - 0.18) / 0.08, 2))
-                                              + 0.4 * Math.exp(-Math.pow((f - 0.42) / 0.10, 2)));
-        const n = 0.6 + 0.4 * this._noise(i * 1.7 + t * 6.0);
+        const shape = Math.exp(-f * 1.7) * (1 + 0.5 * Math.exp(-Math.pow((f - 0.22) / 0.12, 2)));
+        const n = 0.55 + 0.45 * this._noise(i * 2.3 + t * 5.5);
         out[i] = Math.min(1, env * shape * n);
       }
     }
@@ -99,139 +85,104 @@
     get level() { let m = 0; for (let i = 0; i < this._smooth.length; i++) m = Math.max(m, this._smooth[i]); return m; }
   }
 
-  /* ---------- Visualizer : médaillon animé ---------- */
-  class Visualizer {
+  /* ---------------- RingWave : la pochette animée ---------------- */
+  class RingWave {
     constructor(canvas, engine, opts = {}) {
       this.canvas = canvas; this.ctx = canvas.getContext("2d"); this.engine = engine;
-      this.bars = opts.bars || 64;
-      this.palette = PALETTES[(opts.seed || 0) % PALETTES.length];
       this.image = opts.image || null;
-      this.ripples = []; this._lastBeat = 0; this._raf = null; this._visible = true;
-      this._dpr = Math.min(2, window.devicePixelRatio || 1);
-      this.fit(); window.addEventListener("resize", () => this.fit());
-    }
-    fit() {
-      const r = this.canvas.getBoundingClientRect();
-      const w = r.width || this.canvas.width, h = r.height || this.canvas.height;
-      this.canvas.width = Math.max(1, w * this._dpr);
-      this.canvas.height = Math.max(1, h * this._dpr);
-      this.w = w; this.h = h;
+      this.bars = opts.bars || 15;
+      // palette du tableau : or + émeraude (+ ivoire en lueur)
+      this.rings = ["#C9A24B", "#1E4A3C", "#D8B25A", "#15302A", "#B8923F", "#0F2620"];
+      this.ripples = []; this._beat = 0; this._raf = null; this._vis = true;
+      this.dpr = Math.min(2, window.devicePixelRatio || 1);
+      this.fit(); this._onR = () => this.fit(); window.addEventListener("resize", this._onR);
     }
     setImage(img) { this.image = img; }
-    setSeed(seed) { this.palette = PALETTES[seed % PALETTES.length]; }
-    setVisible(v) { this._visible = v; }
-    start() { if (!this._raf) this._loop(); }
-    stop() { if (this._raf) cancelAnimationFrame(this._raf); this._raf = null; }
-    _loop() { this._raf = requestAnimationFrame(() => this._loop()); if (this._visible) this._draw(); }
-
-    _draw() {
-      const ctx = this.ctx, dpr = this._dpr, w = this.w, h = this.h;
-      const cx = (w / 2) * dpr, cy = (h / 2) * dpr;
-      const R = Math.min(w, h) * 0.5 * dpr;
-      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      const spec = this.engine.sample(this.bars);
-      const level = this.engine.level;
-      const t = performance.now() / 1000;
-      const disc = R * 0.56; // rayon du médaillon central
-
-      // ondes concentriques sur les pics de voix
-      if (!REDUCED && level > 0.40 && t - this._lastBeat > 0.18) {
-        this.ripples.push({ r: disc, a: 0.38 }); this._lastBeat = t;
-      }
-      for (let i = this.ripples.length - 1; i >= 0; i--) {
-        const rp = this.ripples[i];
-        rp.r += R * 0.010; rp.a -= 0.010;
-        if (rp.a <= 0 || rp.r > R * 1.18) { this.ripples.splice(i, 1); continue; }
-        ctx.beginPath(); ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = this._rgba(this.palette.ring, rp.a); ctx.lineWidth = 1.2 * dpr; ctx.stroke();
-      }
-
-      // lueur
-      const glowR = disc * (1.05 + level * 0.25);
-      const g = ctx.createRadialGradient(cx, cy, disc * 0.4, cx, cy, glowR);
-      g.addColorStop(0, this._rgba(this.palette.glow, 0.5 * (0.4 + level)));
-      g.addColorStop(1, this._rgba(this.palette.glow, 0));
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, glowR, 0, Math.PI * 2); ctx.fill();
-
-      // égaliseur en couronne
-      const inner = disc + R * 0.03;
-      const maxBar = R * 0.31;
-      for (let i = 0; i < this.bars; i++) {
-        const ang = (i / this.bars) * Math.PI * 2 - Math.PI / 2;
-        const len = R * 0.02 + spec[i] * maxBar;
-        const x1 = cx + Math.cos(ang) * inner, y1 = cy + Math.sin(ang) * inner;
-        const x2 = cx + Math.cos(ang) * (inner + len), y2 = cy + Math.sin(ang) * (inner + len);
-        const lg = ctx.createLinearGradient(x1, y1, x2, y2);
-        lg.addColorStop(0, this.palette.bar1); lg.addColorStop(1, this.palette.bar2);
-        ctx.strokeStyle = lg; ctx.lineCap = "round";
-        ctx.lineWidth = Math.max(1.3 * dpr, (Math.PI * 2 * inner) / this.bars * 0.38);
-        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-      }
-
-      // médaillon central : le tableau serti dans l'or
-      ctx.save();
-      ctx.beginPath(); ctx.arc(cx, cy, disc, 0, Math.PI * 2); ctx.clip();
-      if (this.image && this.image.complete && this.image.naturalWidth) {
-        const iw = this.image.naturalWidth, ih = this.image.naturalHeight;
-        const s = Math.max((disc * 2) / iw, (disc * 2) / ih);
-        const dw = iw * s, dh = ih * s;
-        ctx.drawImage(this.image, cx - dw / 2, cy - dh / 2, dw, dh);
-        // léger vernis pour fondre dans la palette
-        const veil = ctx.createRadialGradient(cx, cy, disc * 0.2, cx, cy, disc);
-        veil.addColorStop(0, "rgba(21,39,31,0)"); veil.addColorStop(1, "rgba(21,39,31,0.28)");
-        ctx.fillStyle = veil; ctx.fillRect(cx - disc, cy - disc, disc * 2, disc * 2);
-      } else {
-        const dg = ctx.createRadialGradient(cx - disc * .3, cy - disc * .3, disc * .1, cx, cy, disc);
-        dg.addColorStop(0, "#2C7A63"); dg.addColorStop(1, "#15271F");
-        ctx.fillStyle = dg; ctx.fillRect(cx - disc, cy - disc, disc * 2, disc * 2);
-      }
-      ctx.restore();
-
-      // cadre d'or
-      const pulse = 1 + level * 0.012;
-      ctx.beginPath(); ctx.arc(cx, cy, disc * pulse, 0, Math.PI * 2);
-      ctx.strokeStyle = this.palette.ring; ctx.lineWidth = 2.4 * dpr; ctx.stroke();
-      ctx.beginPath(); ctx.arc(cx, cy, disc * pulse - 5 * dpr, 0, Math.PI * 2);
-      ctx.strokeStyle = this._rgba(this.palette.ring, 0.4); ctx.lineWidth = 1 * dpr; ctx.stroke();
-    }
-    _rgba(hex, a) {
-      const n = parseInt(hex.slice(1), 16);
-      return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${Math.max(0, a)})`;
-    }
-  }
-
-  /* ---------- WaveStrip : forme d'onde du lecteur ---------- */
-  class WaveStrip {
-    constructor(canvas, engine, progressFn) {
-      this.canvas = canvas; this.ctx = canvas.getContext("2d"); this.engine = engine;
-      this.progress = progressFn || (() => 0);
-      this.bars = 90; this.heights = new Float32Array(this.bars).fill(0.12);
-      this._dpr = Math.min(2, window.devicePixelRatio || 1); this._raf = null;
-      this.fit(); window.addEventListener("resize", () => this.fit());
-    }
     fit() {
       const r = this.canvas.getBoundingClientRect();
-      this.w = r.width || 900; this.h = r.height || 46;
-      this.canvas.width = this.w * this._dpr; this.canvas.height = this.h * this._dpr;
+      this.w = r.width || this.canvas.width; this.h = r.height || this.canvas.height;
+      this.canvas.width = Math.max(1, this.w * this.dpr);
+      this.canvas.height = Math.max(1, this.h * this.dpr);
     }
     start() { if (!this._raf) this._loop(); }
     stop() { if (this._raf) cancelAnimationFrame(this._raf); this._raf = null; }
     _loop() { this._raf = requestAnimationFrame(() => this._loop()); this._draw(); }
+
+    _coverRect(img, dx, dy, dw, dh, biasY) {
+      const s = Math.max(dw / img.naturalWidth, dh / img.naturalHeight);
+      const iw = img.naturalWidth * s, ih = img.naturalHeight * s;
+      const ox = dx + (dw - iw) / 2;
+      const oy = dy + (dh - ih) * (biasY == null ? 0.5 : biasY);
+      this.ctx.drawImage(img, ox, oy, iw, ih);
+    }
+
     _draw() {
-      const ctx = this.ctx, dpr = this._dpr, W = this.w * dpr, H = this.h * dpr;
+      const ctx = this.ctx, dpr = this.dpr, W = this.w * dpr, H = this.h * dpr;
+      const cx = W / 2, cy = H / 2;
       ctx.clearRect(0, 0, W, H);
+
       const spec = this.engine.sample(this.bars);
-      for (let i = 0; i < this.bars; i++) this.heights[i] += ((0.1 + spec[i] * 0.9) - this.heights[i]) * 0.35;
-      const prog = Math.max(0, Math.min(1, this.progress()));
-      const gap = W / this.bars, bw = gap * 0.5;
+      const level = this.engine.level;
+      const t = performance.now() / 1000;
+
+      // — fond : ondes concentriques façon papier découpé —
+      const corner = Math.hypot(W, H) / 2;
+      const n = this.rings.length;
+      const pulse = 1 + level * 0.05;
+      const breathe = REDUCED ? 0 : (Math.sin(t * 1.1) * 0.012);
+      for (let i = n - 1; i >= 0; i--) {
+        const rr = corner * ((i + 1) / n) * (pulse + breathe);
+        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2);
+        ctx.fillStyle = this.rings[i % this.rings.length];
+        ctx.fill();
+      }
+      // halo central chaud
+      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, corner * 0.5);
+      halo.addColorStop(0, "rgba(226,199,126," + (0.10 + level * 0.18) + ")");
+      halo.addColorStop(1, "rgba(226,199,126,0)");
+      ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, corner * 0.5, 0, Math.PI * 2); ctx.fill();
+
+      // — ondes qui naissent sur les pics de voix —
+      if (!REDUCED && level > 0.42 && t - this._beat > 0.18) { this.ripples.push({ r: H * 0.16, a: 0.5 }); this._beat = t; }
+      for (let i = this.ripples.length - 1; i >= 0; i--) {
+        const rp = this.ripples[i]; rp.r += corner * 0.012; rp.a -= 0.012;
+        if (rp.a <= 0) { this.ripples.splice(i, 1); continue; }
+        ctx.beginPath(); ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(226,199,126," + rp.a + ")"; ctx.lineWidth = 1.4 * dpr; ctx.stroke();
+      }
+
+      // — le tableau découpé en barres verticales —
+      const region = W * 0.84, startX = cx - region / 2;
+      const gap = (region / this.bars) * 0.16, bw = region / this.bars - gap;
+      const maxH = H * 0.78, minH = H * 0.12;
+      ctx.save();
+      ctx.beginPath();
       for (let i = 0; i < this.bars; i++) {
-        const x = i * gap + (gap - bw) / 2, bh = this.heights[i] * H, y = (H - bh) / 2;
-        ctx.fillStyle = (i / this.bars) <= prog ? "#C9A968" : "rgba(241,231,207,0.26)";
-        this._rrect(ctx, x, y, bw, bh, Math.min(bw / 2, 3 * dpr)); ctx.fill();
+        const bh = minH + spec[i] * (maxH - minH);
+        const x = startX + i * (bw + gap), y = cy - bh / 2;
+        this._roundRect(ctx, x, y, bw, bh, Math.min(bw / 2, 4 * dpr));
+      }
+      ctx.clip();
+      if (this.image && this.image.complete && this.image.naturalWidth) {
+        this._coverRect(this.image, startX, cy - maxH / 2, region, maxH, 0.34);
+        // léger vernis sombre pour la lisibilité
+        ctx.fillStyle = "rgba(15,24,20,0.12)"; ctx.fillRect(startX, cy - maxH / 2, region, maxH);
+      } else {
+        const g = ctx.createLinearGradient(0, cy - maxH / 2, 0, cy + maxH / 2);
+        g.addColorStop(0, "#E2C77E"); g.addColorStop(1, "#B8923F");
+        ctx.fillStyle = g; ctx.fillRect(startX, cy - maxH / 2, region, maxH);
+      }
+      ctx.restore();
+
+      // liseré or sur chaque barre (souligne le découpage)
+      ctx.strokeStyle = "rgba(226,199,126,0.28)"; ctx.lineWidth = 1 * dpr;
+      for (let i = 0; i < this.bars; i++) {
+        const bh = minH + spec[i] * (maxH - minH);
+        const x = startX + i * (bw + gap), y = cy - bh / 2;
+        this._roundRect(ctx, x, y, bw, bh, Math.min(bw / 2, 4 * dpr)); ctx.stroke();
       }
     }
-    _rrect(ctx, x, y, w, h, r) {
+    _roundRect(ctx, x, y, w, h, r) {
       ctx.beginPath(); ctx.moveTo(x + r, y);
       ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
       ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
@@ -239,6 +190,5 @@
   }
 
   window.AudioEngine = AudioEngine;
-  window.Visualizer = Visualizer;
-  window.WaveStrip = WaveStrip;
+  window.RingWave = RingWave;
 })();

@@ -1,69 +1,50 @@
 /* =================================================================
-   episodes.js — « base de contenu » de la maquette
+   episodes.js — la « base de contenu »
    -----------------------------------------------------------------
-   C'est ici que vivent les épisodes. En production WordPress, cette
-   liste devient un type de contenu « Épisode » (ou un flux podcast) :
-   la cliente remplit un formulaire, et chaque épisode arrive ici
-   automatiquement. Le design, lui, est TOUJOURS le même — il s'applique
-   tout seul à partir de ces quelques champs.
+   En production : type de contenu « Épisode » (WordPress) ou flux
+   podcast. Ici, chaque entrée suffit ; le design s'applique seul.
 
-   Champs d'un épisode :
-     number      → numéro d'épisode
-     title       → titre
-     duration    → durée affichée
-     date        → date de publication (AAAA-MM-JJ)
-     description → résumé court
-     audio       → URL du fichier .mp3 (optionnel en démo)
-     seed        → graine de couleur/animation (générée si absente)
+   Champs :
+     number, title, category, duration, description
+     pos     → cadrage de la pochette dans le tableau (0–100 %)
+     audio   → URL .mp3 (optionnel ; sinon animation simulée)
    ================================================================= */
 
 window.PODCAST_EPISODES = [
   {
-    number: 1,
-    title: "La cour de l'Impératrice Eugénie",
-    duration: "32 min",
-    date: "2026-06-15",
-    description: "Dans le salon vert des Tuileries, on observe l'étiquette, les dames d'honneur et la grâce d'une souveraine qui inspira Winterhalter.",
+    number: 1, category: "Cour & étiquette", duration: "14:20", pos: 50,
+    title: "Les murmures du salon vert",
+    description: "Pénétrez dans les arcanes du protocole. Derrière le placement très précis de chaque dame d'honneur se cache une hiérarchie intime — et quelques rivalités de salon.",
     audio: ""
   },
   {
-    number: 2,
-    title: "Paris transfiguré : Haussmann",
-    duration: "29 min",
-    date: "2026-06-01",
-    description: "Percées, boulevards, parcs et égouts : comment le préfet a redessiné la capitale en moins de vingt ans.",
+    number: 2, category: "Mode & société", duration: "11:05", pos: 16,
+    title: "L'ingénierie de la crinoline",
+    description: "Une révolution textile à l'ossature d'acier. Comment cette mode monumentale a redéfini le pouvoir, l'espace occupé par les femmes et l'économie du luxe.",
     audio: ""
   },
   {
-    number: 3,
-    title: "Les bals des Tuileries",
-    duration: "27 min",
-    date: "2026-05-15",
-    description: "Lustres, crinolines et carnets de bal : une nuit de fête au palais, racontée pas à pas.",
+    number: 3, category: "Symbolisme", duration: "09:45", pos: 84,
+    title: "La clé secrète des fleurs",
+    description: "Chèvrefeuille, lilas sauvage, violettes : décryptage des messages cryptés glissés au premier plan par Winterhalter, et de leur écho politique.",
     audio: ""
   },
   {
-    number: 4,
-    title: "Winterhalter, peintre des élégances",
-    duration: "34 min",
-    date: "2026-05-01",
-    description: "Le portraitiste des cours d'Europe et son tableau le plus célèbre : Eugénie entourée de ses dames d'honneur.",
+    number: 4, category: "Art", duration: "16:13", pos: 34,
+    title: "Winterhalter, peintre des cours",
+    description: "Le portraitiste le plus convoité d'Europe. Lumière sur sa technique, ses commandes royales et la fabrique d'une image impériale.",
     audio: ""
   },
   {
-    number: 5,
-    title: "Compiègne : les Séries de l'automne",
-    duration: "31 min",
-    date: "2026-04-15",
-    description: "Chasses, théâtre et conversations : la vie de château quand la cour quittait Paris pour la forêt.",
+    number: 5, category: "Histoire", duration: "18:30", pos: 66,
+    title: "Eugénie, une impératrice politique",
+    description: "Au-delà de l'icône de mode : régences, diplomatie et influence. Le portrait d'une femme de pouvoir dans un monde d'hommes.",
     audio: ""
   },
   {
-    number: 6,
-    title: "Worth et la naissance de la haute couture",
-    duration: "26 min",
-    date: "2026-04-01",
-    description: "Comment un Anglais habilla l'Impératrice et inventa, rue de la Paix, le métier de couturier.",
+    number: 6, category: "Vie de cour", duration: "13:50", pos: 26,
+    title: "Compiègne, le théâtre de l'automne",
+    description: "Les « Séries » de Compiègne : chasses, théâtre et conversations. Quand la cour quittait Paris pour inventer l'art du divertissement officiel.",
     audio: ""
   }
 ];
