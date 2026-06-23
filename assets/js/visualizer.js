@@ -91,8 +91,8 @@
       this.canvas = canvas; this.ctx = canvas.getContext("2d"); this.engine = engine;
       this.image = opts.image || null;
       this.bars = opts.bars || 15;
-      // palette du tableau : or + émeraude (+ ivoire en lueur)
-      this.rings = ["#C9A24B", "#1E4A3C", "#D8B25A", "#15302A", "#B8923F", "#0F2620"];
+      // charte mes petites visites : terracotta + sauge/olive + bleu nuit (crème en lueur)
+      this.rings = ["#DB9079", "#2C3556", "#B54144", "#1A203C", "#8E9679", "#11152A"];
       this.ripples = []; this._beat = 0; this._raf = null; this._vis = true;
       this.dpr = Math.min(2, window.devicePixelRatio || 1);
       this.fit(); this._onR = () => this.fit(); window.addEventListener("resize", this._onR);
@@ -138,8 +138,8 @@
       }
       // halo central chaud
       const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, corner * 0.5);
-      halo.addColorStop(0, "rgba(226,199,126," + (0.10 + level * 0.18) + ")");
-      halo.addColorStop(1, "rgba(226,199,126,0)");
+      halo.addColorStop(0, "rgba(250,243,221," + (0.10 + level * 0.18) + ")");
+      halo.addColorStop(1, "rgba(250,243,221,0)");
       ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, corner * 0.5, 0, Math.PI * 2); ctx.fill();
 
       // — ondes qui naissent sur les pics de voix —
@@ -148,7 +148,7 @@
         const rp = this.ripples[i]; rp.r += corner * 0.012; rp.a -= 0.012;
         if (rp.a <= 0) { this.ripples.splice(i, 1); continue; }
         ctx.beginPath(); ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(226,199,126," + rp.a + ")"; ctx.lineWidth = 1.4 * dpr; ctx.stroke();
+        ctx.strokeStyle = "rgba(250,243,221," + rp.a + ")"; ctx.lineWidth = 1.4 * dpr; ctx.stroke();
       }
 
       // — le tableau découpé en barres verticales —
@@ -166,16 +166,16 @@
       if (this.image && this.image.complete && this.image.naturalWidth) {
         this._coverRect(this.image, startX, cy - maxH / 2, region, maxH, 0.34);
         // léger vernis sombre pour la lisibilité
-        ctx.fillStyle = "rgba(15,24,20,0.12)"; ctx.fillRect(startX, cy - maxH / 2, region, maxH);
+        ctx.fillStyle = "rgba(17,21,42,0.14)"; ctx.fillRect(startX, cy - maxH / 2, region, maxH);
       } else {
         const g = ctx.createLinearGradient(0, cy - maxH / 2, 0, cy + maxH / 2);
-        g.addColorStop(0, "#E2C77E"); g.addColorStop(1, "#B8923F");
+        g.addColorStop(0, "#EDC6B4"); g.addColorStop(1, "#B54144");
         ctx.fillStyle = g; ctx.fillRect(startX, cy - maxH / 2, region, maxH);
       }
       ctx.restore();
 
-      // liseré or sur chaque barre (souligne le découpage)
-      ctx.strokeStyle = "rgba(226,199,126,0.28)"; ctx.lineWidth = 1 * dpr;
+      // liseré crème sur chaque barre (souligne le découpage)
+      ctx.strokeStyle = "rgba(250,243,221,0.30)"; ctx.lineWidth = 1 * dpr;
       for (let i = 0; i < this.bars; i++) {
         const bh = minH + spec[i] * (maxH - minH);
         const x = startX + i * (bw + gap), y = cy - bh / 2;

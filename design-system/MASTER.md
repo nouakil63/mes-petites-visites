@@ -12,8 +12,11 @@
 
 ## 2. Direction artistique
 **Parti pris : la cinémathèque sombre & premium** (façon plateforme d'écoute haut
-de gamme). Fond profond, dorures, le tableau de Winterhalter en pièce maîtresse
-(hero plein cadre, pochettes recadrées). Palette or + émeraude prélevée sur l'œuvre.
+de gamme). Fond profond, le tableau de Winterhalter en pièce maîtresse (hero plein
+cadre, pochettes recadrées). **Palette authentique de la marque** relevée sur
+mes-petites-visites.fr : le **bleu nuit #1A203C** sert de fond profond, la **crème
+#FAF3DD** porte le texte, la **terracotta #B54144** marque l'état « en lecture »,
+**sauge #8E9679** et **olive #4E5340** servent d'accents.
 
 - **Ouverture** : un **loader au logo** (logo + filet d'or + « Le Second Empire »)
   qui se fond/zoome dans la page. Une fois par session, passable au clic, coupé si
@@ -27,24 +30,29 @@ de gamme). Fond profond, dorures, le tableau de Winterhalter en pièce maîtress
 - **Style** : premium sombre, plat + détails fins (filets d'or, chips, ombres douces
   cohérentes). Pas de glassmorphism gratuit, pas de néon.
 
-## 3. Couleurs (échantillonnées sur le tableau + charte du site)
-| Token | Hex | Usage |
-|---|---|---|
-| `--green-900` | `#0F2019` | mur le plus sombre |
-| `--green-800` | `#15271F` | fond hero / lecteur |
-| `--emerald`   | `#1F5C4D` | robe centrale, accents |
-| `--gold`      | `#C9A968` | texte/filets sur fond sombre |
-| `--gold-deep` | `#A9803F` | dorure du cadre, labels sur clair |
-| `--gold-dark` | `#7E5B27` | petit texte doré sur clair (contraste) |
-| `--ivory`     | `#F1E7CF` | texte sur sombre, surfaces |
-| `--paper`     | `#F7F2E6` | fond des sections claires |
-| `--rose`      | `#D38C8C` | accent (robes roses) |
-| `--blue`      | `#5B7FA6` | accent (rubans) |
-| `--ink`       | `#23201A` | texte principal sur clair |
-| `--navy`      | `#1A203C` | logo, pied de page (charte site) |
-| `--terracotta`| `#B54144` | état « en lecture » (charte site) |
+## 3. Couleurs — charte authentique mes-petites-visites.fr
+Relevée sur le site live (Elementor `elementor-kit-7`). Source de vérité.
 
-Contraste vérifié AA : ivoire/vert ≥ 7:1, ink/paper ≥ 12:1, gold-dark/paper ≥ 4.5:1.
+| Rôle (charte) | Hex | Usage dans la plateforme |
+|---|---|---|
+| Bleu nuit (primaire) | `#1A203C` | fond de marque ; texte foncé sur clair |
+| Terracotta (secondaire) | `#B54144` | état « en lecture », accents pleins |
+| Olive (accent) | `#4E5340` | accents verts profonds |
+| Sauge | `#8E9679` | chips, filets verts |
+| Crème | `#FAF3DD` | texte sur sombre, surfaces claires |
+| Blanc | `#FFFFFF` | surfaces, contrastes |
+| Gris | `#7A7A7A` | texte secondaire (site clair) |
+
+**Déclinaison sombre (cinémathèque)** — variables CSS effectives :
+`--bg #11152A` · `--bg-2 #1A203C` · `--surface #222A49` (cartes) ·
+`--gold #DB9079` (terracotta éclaircie, labels sur sombre) ·
+`--gold-2 #EDC6B4` (clay pâle) · `--emerald #8E9679` (sauge) ·
+`--emerald-d #4E5340` (olive) · `--cream #FAF3DD` · `--text #FAF3DD`.
+*Les noms `--gold/--emerald` sont conservés pour compatibilité ; leurs valeurs
+sont désormais des couleurs de marque.*
+
+Contraste : crème `#FAF3DD` sur bleu nuit `#1A203C` ≈ 13:1 ; clay `#DB9079`
+sur bleu nuit ≈ 4.7:1 (labels) ; cream sur terracotta `#B54144` ≈ 4.6:1.
 
 ## 4. Typographie
 - **Display / art** : *Playfair Display* (titres, pochettes — touche éditoriale).
