@@ -1,91 +1,88 @@
-# Podcast « Le Second Empire » — maquette fonctionnelle
+# Le Second Empire — page Podcast (maquette)
 
-Maquette interactive d'une page **Podcast** pour *mes petites visites*, dans l'univers du
-tableau de Winterhalter (*L'Impératrice Eugénie entourée de ses dames d'honneur*) tout en
-restant fidèle à la charte du site.
+Maquette d'une page **Podcast** pour *mes petites visites*, conçue comme une **revue d'art**
+autour du tableau de Franz Xaver Winterhalter, *L'Impératrice Eugénie entourée de ses dames
+d'honneur* (1855). Palette échantillonnée sur la toile, filets d'or, grands blancs, sérif à fort
+contraste — et un médaillon **animé au rythme de la parole**.
 
-> **Pour la voir :** ouvrir `index.html` dans un navigateur. Aucun serveur, aucune installation.
+> **Aperçu :** ouvrir `index.html` dans un navigateur. Aucun serveur, aucune installation.
 
 ---
 
-## Ce que la maquette démontre
+## ⚠️ Une seule chose à fournir : la toile
 
-1. **L'univers du tableau, réellement repris.**
-   Palette directement tirée de la peinture : vert émeraude/sapin de la robe centrale, roses
-   poudrés, ivoire, ruban bleu, ors. Le hero est une « toile » composée de dégradés et de taches
-   de couleur floutées qui évoquent les robes et le feuillage du jardin.
+La maquette est bâtie **autour** du tableau. Déposez l'image ici :
 
-2. **La charte du site, conservée.**
-   Bleu marine `#1A203C`, crème `#FAF3DD`, terracotta `#B54144`, olive `#4E5340`, sauge `#8E9679`,
-   logo recréé en SVG, et des polices proches de **Quiche Display** (titres) + **Champagne
-   Limousines** (texte).
+```
+assets/img/eugenie.jpg
+```
 
-3. **L'animation au rythme de la parole** (comme l'exemple Napoleonica).
-   Chaque pochette est animée : **ondes concentriques** qui naissent sur les pics de voix +
-   **égaliseur en couronne** + médaillon qui pulse. Une **forme d'onde linéaire** accompagne le
-   lecteur en bas de page.
-   - Avec un vrai fichier audio → analyse réelle via la **Web Audio API** (`AnalyserNode`).
-   - Sans fichier → une **cadence de parole de synthèse** anime quand même la maquette.
+C'est une œuvre du **domaine public** (Winterhalter, 1855) — version haute définition sur
+Wikimedia Commons. Je n'ai pas pu la télécharger automatiquement : l'environnement d'exécution
+bloque l'accès réseau à Wikimedia (liste d'autorisation d'egress). Deux options :
 
-4. **Publier = design appliqué automatiquement.**
-   La section **« Publier »** est une démo vivante : on remplit 3 champs, on (dé)pose un audio, on
-   clique — un nouvel épisode **entièrement stylé et animé** apparaît en tête de liste, sans le
-   moindre réglage.
+1. **Vous déposez le fichier** `eugenie.jpg` dans `assets/img/` (puis commit) — le plus simple.
+2. **Vous autorisez `upload.wikimedia.org`** dans les réglages réseau de l'environnement et je le
+   récupère moi-même.
+
+Sans l'image, la page reste cohérente (le hero retombe sur le vert sombre du tableau), mais c'est
+évidemment avec la toile qu'elle prend tout son sens.
+
+---
+
+## Ce que la maquette montre
+
+- **Le tableau comme pièce maîtresse** : pleine page dans le hero, et **serti dans un médaillon
+  d'or** au centre des animations.
+- **La palette du tableau** : émeraude de la robe centrale, ivoire des robes claires, roses,
+  rubans bleus, ors — appliquée avec retenue.
+- **La charte du site conservée** : logo, bleu marine `#1A203C`, touches terracotta `#B54144`,
+  polices proches de Quiche Display (titres) + Champagne Limousines (texte).
+- **L'animation au rythme de la parole** (comme l'exemple Napoleonica) : ondes concentriques qui
+  naissent sur les pics de voix + égaliseur en couronne + cadre qui pulse. Analyse réelle via la
+  **Web Audio API** quand un fichier joue ; sinon une cadence de parole simulée prend le relais.
+- **Publier = design appliqué automatiquement** : voir ci-dessous.
+
+---
+
+## Publier un épisode (workflow)
+
+La page publique (`index.html`) ne contient **aucun élément de back-office** — c'est une page
+finie. La publication se fait depuis une page séparée :
+
+```
+admin.html  →  « Espace de publication »
+```
+
+On y remplit titre / numéro / durée / description (+ lien audio optionnel) et on clique sur
+**Publier**. L'épisode est enregistré et apparaît sur `index.html`, **déjà mis en page et animé**,
+sans le moindre réglage. *(Dans la maquette, le stockage se fait dans le navigateur via
+`localStorage` pour démontrer le principe.)*
+
+### En production (WordPress / Elementor)
+La page est en HTML/CSS/JS natif ; elle s'intègre au site existant :
+- **plugin podcast** (Seriously Simple Podcasting, PodLove) : la cliente téléverse l'audio + le
+  titre, le plugin gère le flux RSS (Apple/Spotify), notre **template** habille chaque épisode ;
+- ou **type de contenu « Épisode »** alimentant l'index via l'API REST ;
+- ou **widget HTML Elementor** branché sur le lecteur audio de la page.
+
+Dans tous les cas : **publier = remplir un formulaire**, le design suit tout seul.
 
 ---
 
 ## Structure
 
 ```
-index.html              La page
-assets/css/styles.css   Le design (deux univers fusionnés en variables CSS)
-assets/js/episodes.js   La « base de contenu » (les épisodes)
-assets/js/visualizer.js L'animation audio-réactive (Canvas + Web Audio API)
-assets/js/app.js        Rendu des cartes, lecteur, démo de publication
-assets/img/             (optionnel) déposer ici le tableau : eugenie.jpg
+index.html               Page publique (la revue)
+admin.html               Espace de publication (back-office)
+assets/css/styles.css    Design — palette du tableau en variables CSS
+assets/js/episodes.js    Épisodes par défaut
+assets/js/visualizer.js  Médaillon animé + forme d'onde (Canvas + Web Audio API)
+assets/js/app.js         Index, lecteur, épisode « à l'écoute », publication
+assets/img/eugenie.jpg   ← la toile à déposer
 ```
 
-### Utiliser la vraie peinture en fond du hero
-Déposer l'image dans `assets/img/eugenie.jpg`, puis ajouter la classe `hero--photo` à la balise
-`<section class="hero" …>` dans `index.html`. Un dégradé sombre assure la lisibilité du texte.
-Par défaut la maquette utilise un fond « peint » en CSS, donc elle est complète sans image.
+Détails : sans dépendance ni build, responsive, `prefers-reduced-motion` respecté, pochettes
+animées seulement quand utile (performance).
 
----
-
-## Comment la cliente publierait (le workflow)
-
-Aujourd'hui, dans la maquette, un épisode = un objet dans `episodes.js` :
-
-```js
-{ number: 7, title: "…", duration: "28 min", date: "2026-07-01",
-  description: "…", audio: "https://…/episode-07.mp3" }
-```
-
-Elle n'a **jamais** à toucher au design : il est généré à partir de ces quelques champs.
-
-### En production (WordPress / Elementor — pistes d'intégration)
-La page actuelle fonctionne en HTML/CSS/JS pur ; elle s'intègre au site existant de l'une de ces
-façons (de la plus simple à la plus structurée) :
-
-- **Plugin podcast dédié** (ex. *Seriously Simple Podcasting* / *PodLove*) : la cliente téléverse
-  l'audio + le titre, le plugin gère le flux RSS (Apple/Spotify), et notre **template** habille
-  automatiquement chaque épisode avec la pochette animée.
-- **Custom Post Type « Épisode »** + champs (titre, n°, durée, fichier audio) : la liste
-  `episodes.js` est alors alimentée par l'API REST de WordPress ; le rendu reste identique.
-- **Widget HTML Elementor** : la pochette animée (`visualizer.js`) se branche sur le lecteur audio
-  d'Elementor — l'animation lit le `<audio>` de la page.
-
-Dans tous les cas : **publier un épisode = remplir un formulaire**, le design suit tout seul.
-
----
-
-## Détails techniques
-
-- **Sans dépendance, sans build.** JavaScript natif, rendu `<canvas>` pour rester fluide.
-- **Performance :** seules les pochettes visibles à l'écran sont animées (`IntersectionObserver`).
-- **Accessibilité :** `prefers-reduced-motion` coupe les animations non essentielles ; navigation
-  au clavier et libellés ARIA sur les contrôles.
-- **Responsive** : mobile → bureau.
-
-> Maquette destinée à valider la direction artistique et l'expérience. L'intégration WordPress
-> définitive se fera une fois la maquette validée.
+> Maquette destinée à valider la direction artistique avant l'intégration WordPress définitive.

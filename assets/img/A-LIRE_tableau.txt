@@ -1,0 +1,12 @@
+Déposez ici la toile de Winterhalter sous le nom : eugenie.jpg
+
+« L'Impératrice Eugénie entourée de ses dames d'honneur »
+Franz Xaver Winterhalter, 1855 — domaine public.
+
+Source recommandée (haute définition) : Wikimedia Commons
+  File:Franz Xaver Winterhalter The Empress Eugénie Surrounded by her Ladies in Waiting.jpg
+
+Une fois le fichier présent :
+  • le hero affiche la toile en pleine page ;
+  • les médaillons animés sertissent automatiquement la peinture.
+Sans le fichier, la page retombe proprement sur le vert sombre du tableau.

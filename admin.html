@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace de publication — Le Second Empire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .wrap { max-width: 760px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) var(--gutter) 90px; }
+    .admin-h { font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem); color: var(--emerald); margin: 10px 0 8px; }
+    .admin-sub { color: var(--ink-soft); max-width: 52ch; }
+    .card { background: var(--ivory); border: 1px solid var(--rule); border-radius: 4px; padding: clamp(22px, 3vw, 36px); margin-top: 34px; }
+    .fld { display: grid; gap: 7px; margin-bottom: 18px; }
+    .fld label { font-family: var(--sans); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+    .fld input, .fld textarea { font-family: var(--sans); font-size: 1rem; color: var(--ink); background: #fff; border: 1px solid var(--rule); border-radius: 3px; padding: 12px 14px; resize: vertical; }
+    .fld input:focus, .fld textarea:focus { outline: none; border-color: var(--gold); }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hint { font-size: .8rem; color: var(--ink-soft); margin: 0; }
+    .submit { font-family: var(--sans); letter-spacing: .14em; text-transform: uppercase; font-size: .8rem; cursor: pointer; border: 0; background: var(--emerald); color: var(--ivory); padding: 15px 30px; border-radius: 3px; transition: background .2s; }
+    .submit:hover { background: var(--emerald-2); }
+    .done { background: var(--emerald); color: var(--ivory); padding: 14px 18px; border-radius: 3px; margin-top: 18px; display: none; }
+    .done a { color: var(--gold-2); border-bottom: 1px solid var(--gold-2); }
+    .pub { margin-top: 40px; }
+    .pub h2 { font-family: var(--serif); font-size: 1.5rem; color: var(--ink); }
+    .pub ul { list-style: none; padding: 0; margin: 14px 0 0; }
+    .pub li { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--rule); }
+    .pub li span em { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--ink); }
+    .pub li small { color: var(--ink-soft); }
+    .rm { background: none; border: 1px solid var(--rule); color: var(--ink-soft); border-radius: 3px; padding: 6px 12px; cursor: pointer; font-size: .78rem; }
+    .rm:hover { border-color: var(--terracotta); color: var(--terracotta); }
+    .back { display: inline-block; margin-top: 8px; font-family: var(--sans); letter-spacing: .12em; text-transform: uppercase; font-size: .76rem; color: var(--ink); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <a href="index.html" aria-label="mes petites visites">
+      <svg class="logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
+        <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <g fill="currentColor"><rect x="19" y="35" width="5" height="15"/><rect x="27" y="27" width="5" height="23"/><rect x="35" y="19" width="5" height="31"/><rect x="43" y="29" width="5" height="21"/></g>
+        <text class="w" x="60" y="31" font-size="18">mes petites</text>
+        <text class="w" x="60" y="49" font-size="18" letter-spacing="0.5">visites</text>
+      </svg>
+    </a>
+    <nav class="mainnav"><a href="index.html">Voir la page</a></nav>
+  </header>
+
+  <main class="wrap">
+    <p class="label">Espace de publication</p>
+    <h1 class="admin-h">Publier un épisode</h1>
+    <p class="admin-sub">Remplissez les champs, déposez votre audio, publiez. La mise en page — couleurs du tableau, médaillon animé, lecteur — s'applique automatiquement sur la page du podcast.</p>
+
+    <form class="card" id="form">
+      <div class="fld">
+        <label for="a-title">Titre de l'épisode</label>
+        <input id="a-title" required placeholder="Les bals des Tuileries" />
+      </div>
+      <div class="two">
+        <div class="fld"><label for="a-number">N° d'épisode</label><input id="a-number" type="number" min="1" placeholder="7" /></div>
+        <div class="fld"><label for="a-duration">Durée</label><input id="a-duration" placeholder="28 min" /></div>
+      </div>
+      <div class="fld">
+        <label for="a-desc">Description</label>
+        <textarea id="a-desc" rows="2" placeholder="Une nuit de fête sous les lustres du palais…"></textarea>
+      </div>
+      <div class="fld">
+        <label for="a-audio">Lien du fichier audio (.mp3)</label>
+        <input id="a-audio" type="url" placeholder="https://…/episode-07.mp3" />
+        <p class="hint">Optionnel pour la démo : sans lien, le médaillon s'anime sur une voix de synthèse.</p>
+      </div>
+      <button class="submit" type="submit">Publier</button>
+      <div class="done" id="done">Épisode publié. <a href="index.html#episodes">Voir sur la page →</a></div>
+    </form>
+
+    <section class="pub">
+      <h2>Épisodes publiés ici</h2>
+      <ul id="pub-list"></ul>
+      <a class="back" href="index.html">← Retour à la page du podcast</a>
+    </section>
+  </main>
+
+  <script src="assets/js/episodes.js"></script>
+  <script>
+    const KEY = "mpv_episodes";
+    const get = () => { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } };
+    const set = (a) => localStorage.setItem(KEY, JSON.stringify(a));
+
+    function renderList() {
+      const list = document.getElementById("pub-list");
+      const eps = get();
+      list.innerHTML = eps.length ? "" : '<li><small>Aucun épisode publié pour l’instant.</small></li>';
+      eps.forEach((ep, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span><em>${ep.title}</em> <small>— ép. ${ep.number} · ${ep.duration || "—"}</small></span>`;
+        const b = document.createElement("button"); b.className = "rm"; b.textContent = "Retirer";
+        b.onclick = () => { const a = get(); a.splice(i, 1); set(a); renderList(); };
+        li.appendChild(b); list.appendChild(li);
+      });
+    }
+
+    document.getElementById("form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const eps = get();
+      const nextNum = (Math.max(0, ...window.PODCAST_EPISODES.map(x => x.number), ...eps.map(x => x.number)) + 1);
+      const ep = {
+        number: parseInt(document.getElementById("a-number").value, 10) || nextNum,
+        title: document.getElementById("a-title").value.trim() || "Nouvel épisode",
+        duration: document.getElementById("a-duration").value.trim() || "—",
+        date: new Date().toISOString().slice(0, 10),
+        description: document.getElementById("a-desc").value.trim() || "Épisode publié — le design s'est appliqué automatiquement.",
+        audio: document.getElementById("a-audio").value.trim()
+      };
+      eps.unshift(ep); set(eps);
+      e.target.reset();
+      document.getElementById("done").style.display = "block";
+      renderList();
+    });
+    renderList();
+  </script>
+</body>
+</html>
