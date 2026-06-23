@@ -22,9 +22,20 @@
   }
   let episodes = loadEpisodes();
 
-  /* ---------- tableau (médaillon) ---------- */
+  /* ---------- tableau (médaillon + hero) ---------- */
+  // On accepte plusieurs extensions : déposez simplement assets/img/eugenie.(jpg|png|…)
   const painting = new Image();
-  painting.src = "assets/img/eugenie.jpg"; // déposer la toile ici (cf. README)
+  (function resolvePainting(i) {
+    const names = ["assets/img/eugenie.jpg", "assets/img/eugenie.jpeg", "assets/img/eugenie.png", "assets/img/eugenie.webp"];
+    if (i >= names.length) return; // pas de toile : repli sur le vert sombre du tableau
+    const probe = new Image();
+    probe.onload = () => {
+      painting.src = names[i];
+      document.documentElement.style.setProperty("--painting", 'url("' + names[i] + '")');
+    };
+    probe.onerror = () => resolvePainting(i + 1);
+    probe.src = names[i];
+  })(0);
 
   /* ---------- audio ---------- */
   const audioEl = $("#audio");
