@@ -11,13 +11,14 @@
 - **Plateforme** : web responsive (mobile-first), intégrable WordPress/Elementor.
 
 ## 2. Direction artistique
-**Parti pris : l'édition claire, fidèle à la marque.** Fond **crème/beige**
-(#FAF3DD → sable), texte **bleu nuit #1A203C**, **terracotta #B54144** en accent et
-état « en lecture », **sauge #8E9679** / **olive #4E5340** en touches. Le tableau de
-Winterhalter reste la pièce maîtresse : seul le **hero demeure une couverture sombre**
-(le tableau plein cadre, voile dégradé, texte ivoire) — tout le reste du site
-(sections, cartes, pop-up, lecteur) est clair. Palette relevée sur
-mes-petites-visites.fr (Elementor `elementor-kit-7`).
+**Parti pris : l'édition claire premium, rythmée clair/sombre.** Fond **crème/beige**
+chaud (#FAF3DD → sable, léger dégradé), texte **bleu nuit #1A203C**, **terracotta
+#B54144** en accent et état « en lecture », **sauge #8E9679** / **olive #4E5340** en
+touches. Registre éditorial : filets sur les intitulés, titres Playfair affirmés,
+flourish. **Rythme clair/sombre** : blocs bleu nuit pour le hero, *Le tableau
+décrypté*, *Abonnement* et le *footer* ; sections, cartes, *Qui vous parle ?* et
+*À la une* en clair. Palette relevée sur mes-petites-visites.fr (Elementor
+`elementor-kit-7`).
 
 - **Ouverture** : un **loader au logo** (logo + filet d'or + « Le Second Empire »)
   qui se fond/zoome dans la page. Une fois par session, passable au clic, coupé si
