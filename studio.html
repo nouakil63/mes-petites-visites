@@ -47,12 +47,12 @@
     (function () {
       var el = document.getElementById("sloader"); if (!el) return;
       var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (sessionStorage.getItem("mpv_studio_seen")) { el.parentNode && el.parentNode.removeChild(el); return; }
+      // NB : pour la revue, le loader se rejoue à chaque chargement.
+      // (Repasser en « une fois par session » une fois validé — voir bloc plus bas.)
       var done = false;
       function finish() {
         if (done) return; done = true;
         el.classList.add("is-open");
-        try { sessionStorage.setItem("mpv_studio_seen", "1"); } catch (e) {}
         setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 1350);
       }
       el.addEventListener("click", finish);
