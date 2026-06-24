@@ -85,11 +85,18 @@
     get level() { let m = 0; for (let i = 0; i < this._smooth.length; i++) m = Math.max(m, this._smooth[i]); return m; }
   }
 
+  /* palettes du médaillon — choisies via canvas[data-rw] (défaut : crème) */
+  const RW_PALS = {
+    cream: { bg: ["#FBF4E2", "#F1E6C8", "#E6D8B2"], rings: "26,32,60", aura: "181,65,68", ripple: "143,53,55", barLo: [196,107,90], barHi: [143,53,55], frame: "26,32,60" },
+    dark:  { bg: ["#241F16", "#1A1712", "#0E0D0A"], rings: "240,232,210", aura: "201,168,106", ripple: "201,168,106", barLo: [127,160,127], barHi: [201,168,106], frame: "201,168,106" }
+  };
+
   /* ---------------- RingWave : la pochette animée ---------------- */
   class RingWave {
     constructor(canvas, engine, opts = {}) {
       this.canvas = canvas; this.ctx = canvas.getContext("2d"); this.engine = engine;
       this.image = opts.image || null;
+      this.pal = RW_PALS[(canvas.dataset && canvas.dataset.rw) || "cream"] || RW_PALS.cream;
       this.seg = (opts.seg || 72) & ~1;     // barres de la couronne (nombre pair)
       this.ripples = []; this._beat = 0; this._raf = null;
       this._spin = 0;                        // lente rotation de la couronne
@@ -126,24 +133,25 @@
       const t = performance.now() / 1000;
       const breathe = REDUCED ? 0.5 : (Math.sin(t * 0.9) * 0.5 + 0.5);
 
-      // — fond : dégradé crème chaud (le « fond » du pop-up) —
+      // — fond : dégradé (palette selon canvas[data-rw]) —
+      const P = this.pal;
       const bg = ctx.createRadialGradient(cx, cy * 0.82, 0, cx, cy, Math.hypot(W, H) / 2);
-      bg.addColorStop(0, "#FBF4E2"); bg.addColorStop(0.55, "#F1E6C8"); bg.addColorStop(1, "#E6D8B2");
+      bg.addColorStop(0, P.bg[0]); bg.addColorStop(0.55, P.bg[1]); bg.addColorStop(1, P.bg[2]);
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
       // — anneaux papier-découpé, très discrets (clin d'œil à la charte) —
       const corner = Math.hypot(W, H) / 2;
       for (let i = 4; i >= 1; i--) {
         ctx.beginPath(); ctx.arc(cx, cy, corner * (i / 4) * (1 + level * 0.03), 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(26,32,60,0.05)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
+        ctx.strokeStyle = "rgba(" + P.rings + ",0.05)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
       }
 
       // — aura chaude qui respire derrière le médaillon —
       const auraR = R * (0.42 + level * 0.12 + breathe * 0.02);
       const aura = ctx.createRadialGradient(cx, cy, R * 0.1, cx, cy, auraR);
-      aura.addColorStop(0, "rgba(181,65,68," + (0.12 + level * 0.22) + ")");
-      aura.addColorStop(0.55, "rgba(181,65,68,0.06)");
-      aura.addColorStop(1, "rgba(181,65,68,0)");
+      aura.addColorStop(0, "rgba(" + P.aura + "," + (0.12 + level * 0.22) + ")");
+      aura.addColorStop(0.55, "rgba(" + P.aura + ",0.06)");
+      aura.addColorStop(1, "rgba(" + P.aura + ",0)");
       ctx.fillStyle = aura; ctx.beginPath(); ctx.arc(cx, cy, auraR, 0, Math.PI * 2); ctx.fill();
 
       // — ondes nées sur les pics de voix —
@@ -152,7 +160,7 @@
         const rp = this.ripples[i]; rp.r += R * 0.006; rp.a -= 0.011;
         if (rp.a <= 0) { this.ripples.splice(i, 1); continue; }
         ctx.beginPath(); ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(143,53,55," + (rp.a * 0.9) + ")"; ctx.lineWidth = 1.3 * dpr; ctx.stroke();
+        ctx.strokeStyle = "rgba(" + P.ripple + "," + (rp.a * 0.9) + ")"; ctx.lineWidth = 1.3 * dpr; ctx.stroke();
       }
 
       // — couronne égaliseur radiale (symétrique gauche/droite) —
@@ -166,7 +174,7 @@
         const a = this._spin - Math.PI / 2 + (i / this.seg) * Math.PI * 2;
         const ca = Math.cos(a), sa = Math.sin(a), len = barMin + v * barMax;
         const k = Math.min(1, 0.22 + v);
-        const cr = (196 - 53 * k) | 0, cg = (107 - 54 * k) | 0, cb = (90 - 35 * k) | 0;
+        const cr = (P.barLo[0] + (P.barHi[0] - P.barLo[0]) * k) | 0, cg = (P.barLo[1] + (P.barHi[1] - P.barLo[1]) * k) | 0, cb = (P.barLo[2] + (P.barHi[2] - P.barLo[2]) * k) | 0;
         ctx.strokeStyle = "rgba(" + cr + "," + cg + "," + cb + "," + (0.62 + v * 0.38) + ")";
         ctx.beginPath();
         ctx.moveTo(cx + ca * ri, cy + sa * ri);
@@ -190,11 +198,11 @@
       }
       ctx.restore();
 
-      // — cadre du médaillon : double filet bleu nuit —
+      // — cadre du médaillon : double filet (selon palette) —
       ctx.beginPath(); ctx.arc(cx, cy, medR, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(26,32,60,0.82)"; ctx.lineWidth = 2 * dpr; ctx.stroke();
+      ctx.strokeStyle = "rgba(" + P.frame + ",0.82)"; ctx.lineWidth = 2 * dpr; ctx.stroke();
       ctx.beginPath(); ctx.arc(cx, cy, medR + 3.5 * dpr, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(26,32,60,0.16)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
+      ctx.strokeStyle = "rgba(" + P.frame + ",0.16)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
     }
   }
 
