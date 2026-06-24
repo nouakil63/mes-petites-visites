@@ -42,6 +42,26 @@ a { color: inherit; text-decoration: none; }
 ::selection { background: rgba(134,164,134,.3); }
 :focus-visible { outline: 2px solid var(--vert); outline-offset: 2px; }
 
+/* ---------------- loader (rideau de théâtre qui s'ouvre) ---------------- */
+.sloader { position: fixed; inset: 0; z-index: 1000; overflow: hidden; cursor: pointer; }
+.sloader__panel { position: absolute; top: 0; bottom: 0; width: 51%; transition: transform 1s var(--ease); will-change: transform; }
+.sloader__panel--l { left: 0; background: linear-gradient(115deg, #0E0D09, #1C1810); border-right: 1px solid rgba(201,168,106,.4); }
+.sloader__panel--r { right: 0; background: linear-gradient(245deg, #0E0D09, #1C1810); border-left: 1px solid rgba(201,168,106,.4); }
+.sloader.is-open .sloader__panel--l { transform: translateX(-100%); }
+.sloader.is-open .sloader__panel--r { transform: translateX(100%); }
+.sloader__glow { position: absolute; left: 50%; top: 50%; width: 72vmin; height: 72vmin; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(201,168,106,.18), transparent 62%); z-index: 1; transition: opacity .6s var(--ease); }
+.sloader.is-open .sloader__glow { opacity: 0; }
+.sloader__brand { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 18px; text-align: center; transition: opacity .5s var(--ease), transform .8s var(--ease); }
+.sloader.is-open .sloader__brand { opacity: 0; transform: scale(1.1); }
+.sloader__logo { height: clamp(46px, 8vw, 66px); color: var(--text); opacity: 0; transform: translateY(10px); animation: sBrand .9s var(--ease) .15s forwards; }
+.sloader__logo .w { font-family: var(--display); fill: var(--text); }
+.sloader__title { font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 4vw, 2.4rem); color: #fff; opacity: 0; transform: translateY(10px); animation: sBrand .9s var(--ease) .35s forwards; }
+.sloader__rule { height: 1px; width: 0; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: sRule .8s var(--ease) .6s forwards; }
+.sloader__sub { font-family: var(--ui); text-transform: uppercase; letter-spacing: .4em; font-size: .64rem; color: var(--gold); opacity: 0; animation: sSub .7s var(--ease) .85s forwards; }
+@keyframes sBrand { to { opacity: 1; transform: none; } }
+@keyframes sRule { to { width: 210px; } }
+@keyframes sSub { to { opacity: .9; } }
+
 /* ---------------- boutons ---------------- */
 .btn { font-family: var(--ui); font-weight: 600; font-size: .82rem; display: inline-flex; align-items: center; gap: 9px; padding: 12px 24px; border-radius: 999px; cursor: pointer; border: 1px solid transparent; transition: transform .2s var(--ease), background .25s, color .25s, border-color .25s; }
 .btn .ico { font-size: 1rem; }
@@ -244,4 +264,6 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .hotspot::after { animation: none; }
+  .sloader__panel, .sloader__brand, .sloader__glow { transition: none; }
+  .sloader__logo, .sloader__title, .sloader__rule, .sloader__sub { animation: none; opacity: 1; transform: none; width: auto; }
 }

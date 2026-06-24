@@ -23,6 +23,42 @@
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   </svg>
 
+  <!-- ============ LOADER (rideau qui s'ouvre) ============ -->
+  <div class="sloader" id="sloader" aria-hidden="true">
+    <div class="sloader__panel sloader__panel--l"></div>
+    <div class="sloader__panel sloader__panel--r"></div>
+    <div class="sloader__glow"></div>
+    <div class="sloader__brand">
+      <svg class="sloader__logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
+        <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <g fill="currentColor"><rect x="19" y="35" width="5" height="15"/><rect x="27" y="27" width="5" height="23"/><rect x="35" y="19" width="5" height="31"/><rect x="43" y="29" width="5" height="21"/></g>
+        <text class="w" x="60" y="31" font-size="18">mes petites</text>
+        <text class="w" x="60" y="49" font-size="18" letter-spacing="0.5">visites</text>
+      </svg>
+      <p class="sloader__title">Le Second Empire</p>
+      <div class="sloader__rule"></div>
+      <p class="sloader__sub">Studio · entrez dans le tableau</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var el = document.getElementById("sloader"); if (!el) return;
+      var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (sessionStorage.getItem("mpv_studio_seen")) { el.parentNode && el.parentNode.removeChild(el); return; }
+      var done = false;
+      function finish() {
+        if (done) return; done = true;
+        el.classList.add("is-open");
+        try { sessionStorage.setItem("mpv_studio_seen", "1"); } catch (e) {}
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 1150);
+      }
+      el.addEventListener("click", finish);
+      var minT = reduce ? 300 : 2000, start = Date.now();
+      function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
+      if (document.readyState === "complete") go(); else window.addEventListener("load", go);
+    })();
+  </script>
+
   <!-- ============ TOGGLE DE VERSION ============ -->
   <div class="vswitch" role="group" aria-label="Choisir la version">
     <a class="vswitch__opt" href="index.html">Édition</a>
