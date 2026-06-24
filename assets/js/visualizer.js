@@ -88,7 +88,8 @@
   /* palettes du médaillon — choisies via canvas[data-rw] (défaut : crème) */
   const RW_PALS = {
     cream: { bg: ["#FBF4E2", "#F1E6C8", "#E6D8B2"], rings: "26,32,60", aura: "181,65,68", ripple: "143,53,55", barLo: [196,107,90], barHi: [143,53,55], frame: "26,32,60" },
-    dark:  { bg: ["#241F16", "#1A1712", "#0E0D0A"], rings: "240,232,210", aura: "201,168,106", ripple: "201,168,106", barLo: [127,160,127], barHi: [201,168,106], frame: "201,168,106" }
+    dark:  { bg: ["#241F16", "#1A1712", "#0E0D0A"], rings: "240,232,210", aura: "201,168,106", ripple: "201,168,106", barLo: [127,160,127], barHi: [201,168,106], frame: "201,168,106" },
+    ink:   { bg: ["#EFE7D2", "#E3D8BB", "#D6C9A6"], rings: "35,32,26", aura: "138,45,36", ripple: "60,52,40", barLo: [124,112,90], barHi: [35,32,26], frame: "35,32,26" }
   };
 
   /* ---------------- RingWave : la pochette animée ---------------- */
