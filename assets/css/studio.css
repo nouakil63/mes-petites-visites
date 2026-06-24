@@ -42,16 +42,43 @@ a { color: inherit; text-decoration: none; }
 ::selection { background: rgba(134,164,134,.3); }
 :focus-visible { outline: 2px solid var(--vert); outline-offset: 2px; }
 
-/* ---------------- loader (rideau de théâtre qui s'ouvre) ---------------- */
-.sloader { position: fixed; inset: 0; z-index: 1000; overflow: hidden; cursor: pointer; }
-.sloader__panel { position: absolute; top: 0; bottom: 0; width: 51%; transition: transform 1s var(--ease); will-change: transform; }
-.sloader__panel--l { left: 0; background: linear-gradient(115deg, #0E0D09, #1C1810); border-right: 1px solid rgba(201,168,106,.4); }
-.sloader__panel--r { right: 0; background: linear-gradient(245deg, #0E0D09, #1C1810); border-left: 1px solid rgba(201,168,106,.4); }
-.sloader.is-open .sloader__panel--l { transform: translateX(-100%); }
-.sloader.is-open .sloader__panel--r { transform: translateX(100%); }
-.sloader__glow { position: absolute; left: 50%; top: 50%; width: 72vmin; height: 72vmin; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(201,168,106,.18), transparent 62%); z-index: 1; transition: opacity .6s var(--ease); }
+/* ---------------- loader (rideau de lit royal / baldaquin) ---------------- */
+.sloader { position: fixed; inset: 0; z-index: 1000; overflow: hidden; cursor: pointer; background: #14130F; }
+.sloader__curtain { position: absolute; top: 0; bottom: 0; width: 52%;
+  background-color: #243A30;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0, rgba(0,0,0,.5) 2px, rgba(150,180,150,.05) 15px, rgba(255,255,255,.11) 27px, rgba(150,180,150,.05) 40px, rgba(0,0,0,.46) 54px),
+    linear-gradient(180deg, #34503F 0%, #1A2C22 100%);
+  box-shadow: inset 0 40px 80px -30px rgba(0,0,0,.65), inset 0 -30px 70px -20px rgba(0,0,0,.6);
+  transition: transform 1.15s var(--ease); will-change: transform; }
+.sloader__curtain--l { left: 0; transform-origin: top left; }
+.sloader__curtain--r { right: 0; transform-origin: top right; }
+.sloader__curtain::after { content: ""; position: absolute; top: 0; bottom: 0; width: 16px; background: linear-gradient(90deg, rgba(201,168,106,0), rgba(201,168,106,.85)); box-shadow: 0 0 18px rgba(201,168,106,.4); }
+.sloader__curtain--l::after { right: 0; }
+.sloader__curtain--r::after { left: 0; transform: scaleX(-1); }
+.sloader.is-open .sloader__curtain--l { transform: translateX(-101%) skewX(4deg) scaleX(1.05); }
+.sloader.is-open .sloader__curtain--r { transform: translateX(101%) skewX(-4deg) scaleX(1.05); }
+/* lambrequin festonné (cantonnière) */
+.sloader__valance { position: absolute; top: 0; left: 0; right: 0; height: clamp(78px, 14vh, 140px); z-index: 3;
+  background-color: #2A4234;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.42) 0, rgba(0,0,0,.42) 2px, rgba(255,255,255,.09) 22px, rgba(0,0,0,.4) 44px),
+    linear-gradient(180deg, #3A5946, #233A2D);
+  -webkit-mask: radial-gradient(circle at 50% 100%, transparent 0 18px, #000 19px) 0 100% / 64px 100% repeat-x;
+  mask: radial-gradient(circle at 50% 100%, transparent 0 18px, #000 19px) 0 100% / 64px 100% repeat-x;
+  box-shadow: inset 0 -12px 28px -8px rgba(0,0,0,.5);
+  transition: transform 1.05s var(--ease); will-change: transform; }
+.sloader__valance::after { content: ""; position: absolute; left: 0; right: 0; bottom: 23px; height: 2px; background: repeating-linear-gradient(90deg, rgba(201,168,106,.9) 0 6px, transparent 6px 64px); }
+.sloader.is-open .sloader__valance { transform: translateY(-106%); }
+/* embrasses à glands dorés */
+.sloader__tie { position: absolute; top: 42%; width: 24px; height: 24px; z-index: 4; border-radius: 50%; background: radial-gradient(circle at 40% 34%, var(--gold), #7c5f2f); box-shadow: 0 8px 18px -6px rgba(0,0,0,.6); transition: opacity .5s var(--ease), transform 1s var(--ease); }
+.sloader__tie--l { left: calc(52% - 24px); }
+.sloader__tie--r { right: calc(52% - 24px); }
+.sloader.is-open .sloader__tie--l { opacity: 0; transform: translateX(-70px); }
+.sloader.is-open .sloader__tie--r { opacity: 0; transform: translateX(70px); }
+.sloader__glow { position: absolute; left: 50%; top: 52%; width: 70vmin; height: 70vmin; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(201,168,106,.16), transparent 62%); z-index: 1; transition: opacity .6s var(--ease); }
 .sloader.is-open .sloader__glow { opacity: 0; }
-.sloader__brand { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 18px; text-align: center; transition: opacity .5s var(--ease), transform .8s var(--ease); }
+.sloader__brand { position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: 16px; text-align: center; transition: opacity .5s var(--ease), transform .8s var(--ease); }
 .sloader.is-open .sloader__brand { opacity: 0; transform: scale(1.1); }
 .sloader__logo { height: clamp(46px, 8vw, 66px); color: var(--text); opacity: 0; transform: translateY(10px); animation: sBrand .9s var(--ease) .15s forwards; }
 .sloader__logo .w { font-family: var(--display); fill: var(--text); }
@@ -264,6 +291,6 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .hotspot::after { animation: none; }
-  .sloader__panel, .sloader__brand, .sloader__glow { transition: none; }
+  .sloader__curtain, .sloader__valance, .sloader__tie, .sloader__brand, .sloader__glow { transition: none; }
   .sloader__logo, .sloader__title, .sloader__rule, .sloader__sub { animation: none; opacity: 1; transform: none; width: auto; }
 }

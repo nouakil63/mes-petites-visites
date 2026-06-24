@@ -25,8 +25,11 @@
 
   <!-- ============ LOADER (rideau qui s'ouvre) ============ -->
   <div class="sloader" id="sloader" aria-hidden="true">
-    <div class="sloader__panel sloader__panel--l"></div>
-    <div class="sloader__panel sloader__panel--r"></div>
+    <div class="sloader__curtain sloader__curtain--l"></div>
+    <div class="sloader__curtain sloader__curtain--r"></div>
+    <span class="sloader__tie sloader__tie--l"></span>
+    <span class="sloader__tie sloader__tie--r"></span>
+    <div class="sloader__valance"></div>
     <div class="sloader__glow"></div>
     <div class="sloader__brand">
       <svg class="sloader__logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
@@ -50,7 +53,7 @@
         if (done) return; done = true;
         el.classList.add("is-open");
         try { sessionStorage.setItem("mpv_studio_seen", "1"); } catch (e) {}
-        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 1150);
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 1350);
       }
       el.addEventListener("click", finish);
       var minT = reduce ? 300 : 2000, start = Date.now();
