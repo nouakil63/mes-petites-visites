@@ -207,13 +207,13 @@ h1, h2, h3 { font-family: var(--art); font-weight: 600; line-height: 1.08; }
 .modal[hidden] { display: none; }
 .modal__scrim { position: absolute; inset: 0; background: rgba(7,9,20,.74); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); opacity: 0; transition: opacity .3s var(--ease); }
 .modal.is-open .modal__scrim { opacity: 1; }
-.modal__dialog { position: relative; width: min(1040px, 100%); max-height: 92vh; overflow: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; display: grid; grid-template-columns: 1.35fr 1fr; box-shadow: 0 50px 120px -30px rgba(0,0,0,.9); transform: translateY(24px) scale(.97); opacity: 0; transition: transform .35s var(--ease), opacity .35s var(--ease); }
+.modal__dialog { position: relative; width: min(1040px, 100%); max-height: 92vh; overflow: auto; background: #141A38; border: 1px solid var(--line); border-radius: 20px; display: grid; grid-template-columns: 1.35fr 1fr; box-shadow: 0 50px 120px -30px rgba(0,0,0,.9); transform: translateY(24px) scale(.97); opacity: 0; transition: transform .35s var(--ease), opacity .35s var(--ease); }
 .modal.is-open .modal__dialog { transform: none; opacity: 1; }
 .modal__close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-2); background: rgba(17,21,42,.5); color: var(--cream); cursor: pointer; display: grid; place-items: center; font-size: 1.1rem; transition: background .2s, color .2s; }
 .modal__close:hover { background: var(--gold); color: var(--navy); }
-.modal__art { position: relative; background: var(--bg); min-height: 320px; }
+.modal__art { position: relative; background: #0C1024; min-height: 320px; }
 .modal__art canvas { width: 100%; height: 100%; display: block; }
-.modal__panel { padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+.modal__panel { position: relative; padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 14px; background: linear-gradient(170deg, #28315A 0%, #1F2750 46%, #181E3E 100%); box-shadow: inset 1px 0 0 var(--line-2); }
 .modal__title { font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--cream); }
 .modal__desc { color: var(--text-2); font-size: .95rem; }
 .modal__track { height: 6px; border-radius: 999px; background: rgba(250,243,221,.16); cursor: pointer; margin-top: 8px; overflow: hidden; }
@@ -254,6 +254,7 @@ h1, h2, h3 { font-family: var(--art); font-weight: 600; line-height: 1.08; }
   .voice__portrait { max-width: 380px; margin: 0 auto; }
   .modal__dialog { grid-template-columns: 1fr; }
   .modal__art { min-height: 250px; aspect-ratio: 3/2; }
+  .modal__panel { box-shadow: inset 0 1px 0 var(--line-2); }
   .navbar__links a:not(.navbar__cta) { display: none; }
 }
 @media (max-width: 560px) {
