@@ -43,21 +43,26 @@ a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2px solid var(--vert); outline-offset: 2px; }
 
 /* ---------------- loader (rideau de lit royal / baldaquin) ---------------- */
-.sloader { position: fixed; inset: 0; z-index: 1000; overflow: hidden; cursor: pointer; background: #14130F; }
+.sloader { position: fixed; inset: 0; z-index: 1000; overflow: hidden; cursor: pointer; perspective: 1500px; transition: opacity .5s var(--ease); }
 .sloader__curtain { position: absolute; top: 0; bottom: 0; width: 52%;
   background-color: #243A30;
   background-image:
-    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0, rgba(0,0,0,.5) 2px, rgba(150,180,150,.05) 15px, rgba(255,255,255,.11) 27px, rgba(150,180,150,.05) 40px, rgba(0,0,0,.46) 54px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.52) 0, rgba(0,0,0,.52) 2px, rgba(150,180,150,.05) 14px, rgba(255,255,255,.12) 26px, rgba(150,180,150,.05) 38px, rgba(0,0,0,.48) 52px),
     linear-gradient(180deg, #34503F 0%, #1A2C22 100%);
-  box-shadow: inset 0 40px 80px -30px rgba(0,0,0,.65), inset 0 -30px 70px -20px rgba(0,0,0,.6);
-  transition: transform 1.15s var(--ease); will-change: transform; }
-.sloader__curtain--l { left: 0; transform-origin: top left; }
-.sloader__curtain--r { right: 0; transform-origin: top right; }
-.sloader__curtain::after { content: ""; position: absolute; top: 0; bottom: 0; width: 16px; background: linear-gradient(90deg, rgba(201,168,106,0), rgba(201,168,106,.85)); box-shadow: 0 0 18px rgba(201,168,106,.4); }
+  box-shadow: inset 0 40px 90px -30px rgba(0,0,0,.7), inset 0 -34px 80px -22px rgba(0,0,0,.62);
+  transform-style: preserve-3d; backface-visibility: hidden;
+  transition: transform 1.45s cubic-bezier(.62,.02,.24,1) .05s; will-change: transform; }
+.sloader__curtain--l { left: 0; transform-origin: left center; }
+.sloader__curtain--r { right: 0; transform-origin: right center; }
+.sloader__curtain::after { content: ""; position: absolute; top: 0; bottom: 0; width: 18px; background: linear-gradient(90deg, rgba(201,168,106,0), rgba(201,168,106,.9)); box-shadow: 0 0 22px rgba(201,168,106,.45); }
 .sloader__curtain--l::after { right: 0; }
 .sloader__curtain--r::after { left: 0; transform: scaleX(-1); }
-.sloader.is-open .sloader__curtain--l { transform: translateX(-101%) skewX(4deg) scaleX(1.05); }
-.sloader.is-open .sloader__curtain--r { transform: translateX(101%) skewX(-4deg) scaleX(1.05); }
+.sloader.is-open .sloader__curtain--l { transform: rotateY(-76deg) scaleX(.34) translateZ(26px); }
+.sloader.is-open .sloader__curtain--r { transform: rotateY(76deg) scaleX(.34) translateZ(26px); }
+/* faisceau de lumière qui s'épanouit dans l'entrebâillement */
+.sloader__light { position: absolute; left: 50%; top: 50%; width: 9vmin; height: 86vh; transform: translate(-50%,-50%) scaleX(.18); z-index: 2; filter: blur(9px); background: radial-gradient(50% 50% at 50% 50%, rgba(255,246,219,.95), rgba(201,168,106,.45) 42%, transparent 72%); opacity: 0; }
+.sloader.is-open .sloader__light { animation: sBloom 1.5s var(--ease) forwards; }
+@keyframes sBloom { 0% { opacity: 0; transform: translate(-50%,-50%) scaleX(.18); } 32% { opacity: 1; } 66% { opacity: .85; transform: translate(-50%,-50%) scaleX(2.6); } 100% { opacity: 0; transform: translate(-50%,-50%) scaleX(3.4); } }
 /* lambrequin festonné (cantonnière) */
 .sloader__valance { position: absolute; top: 0; left: 0; right: 0; height: clamp(78px, 14vh, 140px); z-index: 3;
   background-color: #2A4234;
@@ -74,12 +79,12 @@ a { color: inherit; text-decoration: none; }
 .sloader__tie { position: absolute; top: 42%; width: 24px; height: 24px; z-index: 4; border-radius: 50%; background: radial-gradient(circle at 40% 34%, var(--gold), #7c5f2f); box-shadow: 0 8px 18px -6px rgba(0,0,0,.6); transition: opacity .5s var(--ease), transform 1s var(--ease); }
 .sloader__tie--l { left: calc(52% - 24px); }
 .sloader__tie--r { right: calc(52% - 24px); }
-.sloader.is-open .sloader__tie--l { opacity: 0; transform: translateX(-70px); }
-.sloader.is-open .sloader__tie--r { opacity: 0; transform: translateX(70px); }
+.sloader.is-open .sloader__tie--l { opacity: 0; transform: translate(-120px, 28px) scale(.7); }
+.sloader.is-open .sloader__tie--r { opacity: 0; transform: translate(120px, 28px) scale(.7); }
 .sloader__glow { position: absolute; left: 50%; top: 52%; width: 70vmin; height: 70vmin; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(201,168,106,.16), transparent 62%); z-index: 1; transition: opacity .6s var(--ease); }
 .sloader.is-open .sloader__glow { opacity: 0; }
-.sloader__brand { position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: 16px; text-align: center; transition: opacity .5s var(--ease), transform .8s var(--ease); }
-.sloader.is-open .sloader__brand { opacity: 0; transform: scale(1.1); }
+.sloader__brand { position: absolute; inset: 0; z-index: 5; display: grid; place-content: center; justify-items: center; gap: 16px; text-align: center; transition: opacity .55s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+.sloader.is-open .sloader__brand { opacity: 0; transform: scale(1.22); filter: blur(3px); }
 .sloader__logo { height: clamp(46px, 8vw, 66px); color: var(--text); opacity: 0; transform: translateY(10px); animation: sBrand .9s var(--ease) .15s forwards; }
 .sloader__logo .w { font-family: var(--display); fill: var(--text); }
 .sloader__title { font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 4vw, 2.4rem); color: #fff; opacity: 0; transform: translateY(10px); animation: sBrand .9s var(--ease) .35s forwards; }
@@ -291,6 +296,6 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .hotspot::after { animation: none; }
-  .sloader__curtain, .sloader__valance, .sloader__tie, .sloader__brand, .sloader__glow { transition: none; }
+  .sloader, .sloader__curtain, .sloader__valance, .sloader__tie, .sloader__brand, .sloader__glow, .sloader__light { transition: none; animation: none; }
   .sloader__logo, .sloader__title, .sloader__rule, .sloader__sub { animation: none; opacity: 1; transform: none; width: auto; }
 }

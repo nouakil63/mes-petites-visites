@@ -29,6 +29,7 @@
     <div class="sloader__curtain sloader__curtain--r"></div>
     <span class="sloader__tie sloader__tie--l"></span>
     <span class="sloader__tie sloader__tie--r"></span>
+    <div class="sloader__light"></div>
     <div class="sloader__valance"></div>
     <div class="sloader__glow"></div>
     <div class="sloader__brand">
@@ -53,7 +54,8 @@
       function finish() {
         if (done) return; done = true;
         el.classList.add("is-open");
-        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 1350);
+        setTimeout(function () { el.style.opacity = "0"; }, reduce ? 120 : 1250);
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 320 : 1720);
       }
       el.addEventListener("click", finish);
       var minT = reduce ? 300 : 2000, start = Date.now();
