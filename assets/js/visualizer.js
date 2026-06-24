@@ -126,23 +126,23 @@
       const t = performance.now() / 1000;
       const breathe = REDUCED ? 0.5 : (Math.sin(t * 0.9) * 0.5 + 0.5);
 
-      // — fond : dégradé nocturne profond (le « fond » du pop-up) —
+      // — fond : dégradé crème chaud (le « fond » du pop-up) —
       const bg = ctx.createRadialGradient(cx, cy * 0.82, 0, cx, cy, Math.hypot(W, H) / 2);
-      bg.addColorStop(0, "#1C2552"); bg.addColorStop(0.55, "#141B38"); bg.addColorStop(1, "#0C1024");
+      bg.addColorStop(0, "#FBF4E2"); bg.addColorStop(0.55, "#F1E6C8"); bg.addColorStop(1, "#E6D8B2");
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
       // — anneaux papier-découpé, très discrets (clin d'œil à la charte) —
       const corner = Math.hypot(W, H) / 2;
       for (let i = 4; i >= 1; i--) {
         ctx.beginPath(); ctx.arc(cx, cy, corner * (i / 4) * (1 + level * 0.03), 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(250,243,221,0.045)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
+        ctx.strokeStyle = "rgba(26,32,60,0.05)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
       }
 
       // — aura chaude qui respire derrière le médaillon —
       const auraR = R * (0.42 + level * 0.12 + breathe * 0.02);
       const aura = ctx.createRadialGradient(cx, cy, R * 0.1, cx, cy, auraR);
-      aura.addColorStop(0, "rgba(219,144,121," + (0.18 + level * 0.26) + ")");
-      aura.addColorStop(0.55, "rgba(181,65,68,0.08)");
+      aura.addColorStop(0, "rgba(181,65,68," + (0.12 + level * 0.22) + ")");
+      aura.addColorStop(0.55, "rgba(181,65,68,0.06)");
       aura.addColorStop(1, "rgba(181,65,68,0)");
       ctx.fillStyle = aura; ctx.beginPath(); ctx.arc(cx, cy, auraR, 0, Math.PI * 2); ctx.fill();
 
@@ -152,7 +152,7 @@
         const rp = this.ripples[i]; rp.r += R * 0.006; rp.a -= 0.011;
         if (rp.a <= 0) { this.ripples.splice(i, 1); continue; }
         ctx.beginPath(); ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(250,243,221," + rp.a + ")"; ctx.lineWidth = 1.3 * dpr; ctx.stroke();
+        ctx.strokeStyle = "rgba(143,53,55," + (rp.a * 0.9) + ")"; ctx.lineWidth = 1.3 * dpr; ctx.stroke();
       }
 
       // — couronne égaliseur radiale (symétrique gauche/droite) —
@@ -166,8 +166,8 @@
         const a = this._spin - Math.PI / 2 + (i / this.seg) * Math.PI * 2;
         const ca = Math.cos(a), sa = Math.sin(a), len = barMin + v * barMax;
         const k = Math.min(1, 0.22 + v);
-        const cr = (181 + (237 - 181) * k) | 0, cg = (65 + (198 - 65) * k) | 0, cb = (68 + (180 - 68) * k) | 0;
-        ctx.strokeStyle = "rgba(" + cr + "," + cg + "," + cb + "," + (0.5 + v * 0.45) + ")";
+        const cr = (196 - 53 * k) | 0, cg = (107 - 54 * k) | 0, cb = (90 - 35 * k) | 0;
+        ctx.strokeStyle = "rgba(" + cr + "," + cg + "," + cb + "," + (0.62 + v * 0.38) + ")";
         ctx.beginPath();
         ctx.moveTo(cx + ca * ri, cy + sa * ri);
         ctx.lineTo(cx + ca * (ri + len), cy + sa * (ri + len));
@@ -181,7 +181,7 @@
         const bias = 0.32 + (REDUCED ? 0 : Math.sin(t * 0.5) * 0.05);
         this._coverRect(this.image, cx - medR, cy - medR, medR * 2, medR * 2, bias);
         const vg = ctx.createRadialGradient(cx, cy - medR * 0.25, medR * 0.2, cx, cy, medR);
-        vg.addColorStop(0, "rgba(17,21,42,0)"); vg.addColorStop(1, "rgba(12,16,36,0.5)");
+        vg.addColorStop(0, "rgba(17,21,42,0)"); vg.addColorStop(1, "rgba(17,21,42,0.42)");
         ctx.fillStyle = vg; ctx.fillRect(cx - medR, cy - medR, medR * 2, medR * 2);
       } else {
         const g = ctx.createLinearGradient(0, cy - medR, 0, cy + medR);
@@ -190,11 +190,11 @@
       }
       ctx.restore();
 
-      // — cadre du médaillon : double filet crème —
+      // — cadre du médaillon : double filet bleu nuit —
       ctx.beginPath(); ctx.arc(cx, cy, medR, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(250,243,221,0.9)"; ctx.lineWidth = 2 * dpr; ctx.stroke();
+      ctx.strokeStyle = "rgba(26,32,60,0.82)"; ctx.lineWidth = 2 * dpr; ctx.stroke();
       ctx.beginPath(); ctx.arc(cx, cy, medR + 3.5 * dpr, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(250,243,221,0.16)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
+      ctx.strokeStyle = "rgba(26,32,60,0.16)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
     }
   }
 

@@ -11,12 +11,13 @@
 - **Plateforme** : web responsive (mobile-first), intégrable WordPress/Elementor.
 
 ## 2. Direction artistique
-**Parti pris : la cinémathèque sombre & premium** (façon plateforme d'écoute haut
-de gamme). Fond profond, le tableau de Winterhalter en pièce maîtresse (hero plein
-cadre, pochettes recadrées). **Palette authentique de la marque** relevée sur
-mes-petites-visites.fr : le **bleu nuit #1A203C** sert de fond profond, la **crème
-#FAF3DD** porte le texte, la **terracotta #B54144** marque l'état « en lecture »,
-**sauge #8E9679** et **olive #4E5340** servent d'accents.
+**Parti pris : l'édition claire, fidèle à la marque.** Fond **crème/beige**
+(#FAF3DD → sable), texte **bleu nuit #1A203C**, **terracotta #B54144** en accent et
+état « en lecture », **sauge #8E9679** / **olive #4E5340** en touches. Le tableau de
+Winterhalter reste la pièce maîtresse : seul le **hero demeure une couverture sombre**
+(le tableau plein cadre, voile dégradé, texte ivoire) — tout le reste du site
+(sections, cartes, pop-up, lecteur) est clair. Palette relevée sur
+mes-petites-visites.fr (Elementor `elementor-kit-7`).
 
 - **Ouverture** : un **loader au logo** (logo + filet d'or + « Le Second Empire »)
   qui se fond/zoome dans la page. Une fois par session, passable au clic, coupé si
@@ -44,16 +45,17 @@ Relevée sur le site live (Elementor `elementor-kit-7`). Source de vérité.
 | Blanc | `#FFFFFF` | surfaces, contrastes |
 | Gris | `#7A7A7A` | texte secondaire (site clair) |
 
-**Déclinaison sombre (cinémathèque)** — variables CSS effectives :
-`--bg #11152A` · `--bg-2 #1A203C` · `--surface #222A49` (cartes) ·
-`--gold #DB9079` (terracotta éclaircie, labels sur sombre) ·
-`--gold-2 #EDC6B4` (clay pâle) · `--emerald #8E9679` (sauge) ·
-`--emerald-d #4E5340` (olive) · `--cream #FAF3DD` · `--text #FAF3DD`.
-*Les noms `--gold/--emerald` sont conservés pour compatibilité ; leurs valeurs
-sont désormais des couleurs de marque.*
+**Édition claire (effective)** — variables CSS :
+`--bg #F5ECD3` (page beige) · `--bg-2 #ECE0C0` (sable, sections alternées) ·
+`--surface #FFFCF5` (cartes blanches) · `--text #1A203C` (bleu nuit) ·
+`--text-2 #595E70` · `--gold #A8403F` (terracotta profond, labels/filets) ·
+`--gold-2 #8F3537` (emphase) · `--emerald #8E9679` (sauge) ·
+`--emerald-d #4E5340` (olive) · `--cream #FAF3DD` (ivoire — texte sur contextes
+sombres : hero, navbar transparente, pastilles sur image).
+*Les noms `--gold/--emerald` sont conservés pour compatibilité.*
 
-Contraste : crème `#FAF3DD` sur bleu nuit `#1A203C` ≈ 13:1 ; clay `#DB9079`
-sur bleu nuit ≈ 4.7:1 (labels) ; cream sur terracotta `#B54144` ≈ 4.6:1.
+Contraste : bleu nuit `#1A203C` sur beige `#F5ECD3` ≈ 12:1 ; terracotta `#A8403F`
+sur beige ≈ 5:1 (labels) ; ivoire `#FAF3DD` sur terracotta `#B54144` ≈ 4.4:1 (CTA).
 
 ## 4. Typographie
 - **Display / art** : *Playfair Display* (titres, pochettes — touche éditoriale).
