@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Le Salon — un podcast mes petites visites</title>
-  <meta name="description" content="Une exposition sonore dans l'intimité de la cour du Second Empire, à travers le chef-d'œuvre de Winterhalter. Un podcast mes petites visites." />
+  <title>Le Parcours — un podcast mes petites visites</title>
+  <meta name="description" content="Entrer dans le tableau de Winterhalter : un parcours sonore dans l'intimité de la cour du Second Empire. Un podcast mes petites visites." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -25,7 +25,7 @@
   <!-- ============ TOGGLE DE VERSION ============ -->
   <div class="vswitch" role="group" aria-label="Choisir la version">
     <a class="vswitch__opt" href="index.html">Édition</a>
-    <a class="vswitch__opt is-active" href="salon.html" aria-current="true">Salon</a>
+    <a class="vswitch__opt is-active" href="salon.html" aria-current="true">Parcours</a>
   </div>
 
   <!-- ============ NAVBAR ============ -->
@@ -39,130 +39,115 @@
       </svg>
     </a>
     <div class="navbar__links">
-      <a href="#serie">La série</a>
-      <a href="#programme">Programme</a>
-      <a href="#tableau">Le tableau</a>
-      <a href="#qui">Qui vous parle ?</a>
+      <a href="#distribution">La distribution</a>
+      <a href="#scene">La scène</a>
+      <a href="#qui">La conteuse</a>
       <a class="navbar__cta" href="#abonnement">S'abonner</a>
     </div>
   </nav>
 
-  <!-- ============ HERO — affiche d'exposition ============ -->
-  <header class="hero">
-    <div class="hero__text">
-      <p class="hero__kicker">mes petites visites · série audio</p>
-      <h1 class="hero__title">Le Second <em>Empire</em></h1>
-      <div class="hero__rule"></div>
-      <p class="hero__lead">Une exposition sonore dans l'intimité de la cour de l'Impératrice Eugénie — secrets de salon, étiquette et symboles cachés derrière le chef-d'œuvre de Winterhalter.</p>
-      <div class="hero__actions">
-        <button class="btn btn--solid" id="hero-listen" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter l'épisode 1</button>
-        <a class="btn btn--ghost" href="#serie">Découvrir la série</a>
-      </div>
+  <!-- ============ 1 · LE SEUIL ============ -->
+  <header class="seuil">
+    <div class="seuil__inner reveal">
+      <p class="kicker seuil__kicker">mes petites visites · série audio</p>
+      <h1 class="seuil__title">Le Second <em>Empire</em></h1>
+      <figure class="seuil__portal">
+        <div class="arch"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855" style="object-position:center 24%" onerror="this.style.display='none'" /></div>
+      </figure>
+      <p class="seuil__sub">Poussez la porte du salon. Entrez dans le tableau de Winterhalter — et dans l'intimité de la cour de l'Impératrice Eugénie.</p>
+      <button class="btn btn--solid seuil__listen" id="hero-listen" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter l'ouverture</button>
     </div>
-    <figure class="hero__art reveal">
-      <div class="frame"><div class="frame__mat"><div class="frame__win">
-        <img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855" style="object-position:center 22%" onerror="this.style.display='none'" />
-      </div></div></div>
-      <figcaption class="hero__cartel"><b>Franz Xaver Winterhalter</b> — L'Impératrice Eugénie entourée de ses dames d'honneur, 1855</figcaption>
-    </figure>
+    <span class="seuil__scroll" aria-hidden="true">Entrer<i></i></span>
   </header>
 
-  <!-- ============ À LA UNE ============ -->
-  <section class="featured" id="serie">
-    <div class="featured__inner">
-      <figure class="featured__art reveal">
-        <div class="frame"><div class="frame__mat"><div class="frame__win">
-          <img class="media" data-painting src="assets/img/eugenie.jpg" alt="" style="object-position:center 30%" onerror="this.style.display='none'" />
-        </div></div></div>
-      </figure>
-      <div class="featured__body reveal">
-        <p class="featured__meta" id="feat-cat">Épisode 1 · Cour &amp; étiquette</p>
-        <h2 class="featured__title" id="feat-title">Les murmures du salon vert</h2>
-        <p class="featured__desc" id="feat-desc"></p>
-        <button class="btn btn--gold" id="feat-play" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter maintenant</button>
-      </div>
+  <!-- ============ 2 · MANIFESTE ============ -->
+  <section class="manifeste">
+    <figure class="manifeste__cameo manifeste__cameo--l reveal"><div class="cameo"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="" style="object-position:18% 40%" onerror="this.closest('.manifeste__cameo').style.display='none'" /></div></figure>
+    <figure class="manifeste__cameo manifeste__cameo--r reveal"><div class="cameo"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="" style="object-position:82% 38%" onerror="this.closest('.manifeste__cameo').style.display='none'" /></div></figure>
+    <div class="manifeste__inner reveal">
+      <div class="fleuron"><span>✦</span></div>
+      <p class="manifeste__line">Chaque épisode est une <em>petite visite</em> : on suit Eugénie dans les jardins de Compiègne, on écoute le froissement des crinolines, on surprend les secrets d'un salon.</p>
     </div>
   </section>
 
-  <!-- ============ PROGRAMME ============ -->
-  <section class="episodes" id="programme">
-    <div class="section-head episodes__head reveal">
-      <p class="eyebrow">Le programme</p>
-      <h2 class="section-title">Tous les épisodes</h2>
-      <div class="fleuron"><span>✦</span></div>
+  <!-- ============ 3 · LA DISTRIBUTION ============ -->
+  <section class="distribution" id="distribution">
+    <div class="section-head reveal">
+      <p class="kicker">La distribution</p>
+      <h2 class="display">Les figures du tableau</h2>
+      <p>Chaque épisode donne la parole à une figure de la scène. Choisissez la vôtre.</p>
     </div>
     <div class="grid" id="grid" aria-live="polite"></div>
   </section>
 
-  <!-- ============ LE TABLEAU DÉCRYPTÉ ============ -->
-  <section class="tableau" id="tableau">
-    <div class="section-head tableau__head reveal">
-      <p class="eyebrow">L'œuvre, point par point</p>
-      <h2 class="section-title">Le tableau décrypté</h2>
-      <p class="section-note">Touchez les pastilles pour lire l'œuvre — chaque détail nourrit un épisode.</p>
-    </div>
-    <div class="tableau__stage reveal">
-      <figure class="tableau__art" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855">
-        <div class="frame"><div class="frame__mat"><div class="frame__win">
-          <img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855" onerror="this.style.display='none'" />
-          <button class="hotspot" style="left:50%; top:54%" data-title="La robe émeraude" data-cap="Au centre, l'Impératrice : la seule en vert profond. Une couleur de souveraineté qui ancre toute la composition autour d'elle." aria-label="La robe émeraude">1</button>
-          <button class="hotspot" style="left:24%; top:78%" data-title="Les fleurs du premier plan" data-cap="Chèvrefeuille, lilas et violettes ne sont pas décoratifs : ce sont des allégories de fidélité et de mémoire, signées par le peintre." aria-label="Les fleurs">2</button>
-          <button class="hotspot" style="left:75%; top:46%" data-title="Le ruban bleu" data-cap="Le bleu des rubans répond au ciel : Winterhalter orchestre une harmonie de cour, chaque dame placée selon un protocole strict." aria-label="Le ruban bleu">3</button>
-          <button class="hotspot" style="left:88%; top:82%" data-title="La signature" data-cap="Discrètement, l'artiste signe la scène d'apparat la plus célèbre du règne — une commande qui fixera l'image de la cour." aria-label="La signature">4</button>
-        </div></div></div>
+  <!-- ============ 4 · ÉPISODE DU MOMENT ============ -->
+  <section class="spotlight" id="serie">
+    <div class="spotlight__inner">
+      <figure class="spotlight__art reveal">
+        <div class="arch"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="" style="object-position:center 26%" onerror="this.style.display='none'" /></div>
       </figure>
-      <div class="tableau__cap" id="tableau-cap">
-        <p class="eyebrow">Détail</p>
-        <h3 id="cap-title">Choisissez un détail</h3>
-        <p id="cap-text">Touchez une pastille dorée sur le tableau pour révéler sa lecture.</p>
+      <div class="spotlight__body reveal">
+        <p class="kicker spotlight__kicker" id="feat-cat">Épisode 1 · Cour &amp; étiquette</p>
+        <h2 class="spotlight__title" id="feat-title">Les murmures du salon vert</h2>
+        <p class="spotlight__desc" id="feat-desc"></p>
+        <button class="btn btn--solid" id="feat-play" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter maintenant</button>
       </div>
     </div>
   </section>
 
-  <!-- ============ QUI VOUS PARLE ? ============ -->
-  <section class="voice" id="qui">
-    <div class="voice__inner reveal">
-      <figure class="voice__portrait">
-        <div class="frame"><div class="frame__mat"><div class="frame__win">
-          <img src="assets/img/sophie.jpg" alt="Sophie Lefaure van Moorsel, guide-conférencière et voix de la série" onerror="(function(im){var ex=['assets/img/sophie.jpeg','assets/img/sophie.png','assets/img/sophie.webp'];var n=+(im.dataset.i||0);if(n&lt;ex.length){im.dataset.i=n+1;im.src=ex[n];}else{var f=im.closest('.voice__portrait');if(f)f.classList.add('is-fallback');im.remove();}})(this)" />
-          <span class="voice__mono" aria-hidden="true">SL</span>
-        </div></div></div>
-      </figure>
-      <div class="voice__body">
-        <p class="eyebrow">Votre guide</p>
-        <h2 class="section-title">Qui vous parle ?</h2>
-        <p class="voice__lead"><b>Sophie Lefaure van Moorsel.</b> C'est moi qui vous accompagne, épisode après épisode — guide-conférencière, j'ai fait de Paris et de son histoire mon terrain de jeu, et du Second Empire une passion qui ne me quitte pas.</p>
-        <p class="voice__text">Fille d'architecte, j'ai grandi l'œil levé vers les façades. Après des études de sciences politiques et des années passées à porter la parole de grandes institutions, j'ai choisi de raconter la ville autrement : par ses salons, ses portraits et ses petites histoires — avec, je l'avoue, une pointe d'humour belge.</p>
-        <p class="voice__sign">Sophie</p>
-        <div class="voice__meta">
+  <!-- ============ 5 · LA SCÈNE ============ -->
+  <section class="scene" id="scene">
+    <div class="scene__head reveal">
+      <p class="kicker">L'œuvre, point par point</p>
+      <h2 class="display">La scène décryptée</h2>
+    </div>
+    <div class="scene__stage reveal">
+      <div class="scene__art" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855">
+        <img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855" onerror="this.style.display='none'" />
+        <button class="hotspot" style="left:50%; top:54%" data-title="La robe émeraude" data-cap="Au centre, l'Impératrice : la seule en vert profond. Une couleur de souveraineté qui ancre toute la composition autour d'elle." aria-label="La robe émeraude">1</button>
+        <button class="hotspot" style="left:24%; top:78%" data-title="Les fleurs du premier plan" data-cap="Chèvrefeuille, lilas et violettes ne sont pas décoratifs : ce sont des allégories de fidélité et de mémoire, signées par le peintre." aria-label="Les fleurs">2</button>
+        <button class="hotspot" style="left:75%; top:46%" data-title="Le ruban bleu" data-cap="Le bleu des rubans répond au ciel : Winterhalter orchestre une harmonie de cour, chaque dame placée selon un protocole strict." aria-label="Le ruban bleu">3</button>
+        <button class="hotspot" style="left:88%; top:82%" data-title="La signature" data-cap="Discrètement, l'artiste signe la scène d'apparat la plus célèbre du règne — une commande qui fixera l'image de la cour." aria-label="La signature">4</button>
+      </div>
+      <div class="scene__cartel" id="tableau-cap">
+        <p class="kicker">Détail</p>
+        <h3 id="cap-title">Choisissez un détail</h3>
+        <p id="cap-text">Touchez une pastille numérotée sur l'œuvre pour révéler sa lecture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · LA CONTEUSE ============ -->
+  <section class="conteuse" id="qui">
+    <div class="conteuse__inner reveal">
+      <div class="conteuse__body">
+        <p class="kicker">La conteuse</p>
+        <h2 class="display" style="font-size:clamp(2.1rem,4.4vw,3.4rem)">Qui vous parle ?</h2>
+        <p class="conteuse__lead"><b>Sophie Lefaure van Moorsel.</b> C'est moi qui vous accompagne, épisode après épisode — guide-conférencière, j'ai fait de Paris et de son histoire mon terrain de jeu.</p>
+        <p class="conteuse__text">Fille d'architecte, j'ai grandi l'œil levé vers les façades. Après des études de sciences politiques et des années à porter la parole de grandes institutions, j'ai choisi de raconter la ville autrement : par ses salons, ses portraits et ses petites histoires — avec, je l'avoue, une pointe d'humour belge.</p>
+        <p class="conteuse__sign">Sophie</p>
+        <div class="conteuse__meta">
           <a class="btn btn--ghost" href="tel:+33610468024">06 10 46 80 24</a>
-          <a class="voice__link" href="#programme">Commencer l'écoute →</a>
+          <a class="btn--text" href="#distribution">Commencer l'écoute →</a>
         </div>
       </div>
+      <figure class="conteuse__portrait">
+        <div class="cameo">
+          <img src="assets/img/sophie.jpg" alt="Sophie Lefaure van Moorsel, guide-conférencière et voix de la série" onerror="(function(im){var ex=['assets/img/sophie.jpeg','assets/img/sophie.png','assets/img/sophie.webp'];var n=+(im.dataset.i||0);if(n&lt;ex.length){im.dataset.i=n+1;im.src=ex[n];}else{var f=im.closest('.conteuse__portrait');if(f)f.classList.add('is-fallback');im.remove();}})(this)" />
+          <span class="conteuse__mono" aria-hidden="true">SL</span>
+        </div>
+      </figure>
     </div>
   </section>
 
-  <!-- ============ MANIFESTE ============ -->
-  <section class="about">
-    <div class="about__inner reveal">
-      <div class="fleuron"><span>❧</span></div>
-      <p class="about__quote">Chaque épisode est une <em>petite visite</em> : on pousse la porte d'un salon des Tuileries, on suit Eugénie dans les jardins de Compiègne, on écoute le froissement des crinolines.</p>
-      <div class="about__stats">
-        <div><strong>1852–1870</strong><span>La période</span></div>
-        <div><strong>tous les 15 j.</strong><span>Un épisode</span></div>
-        <div><strong>~14 min</strong><span>Le format</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ ABONNEMENT ============ -->
-  <section class="subscribe" id="abonnement">
-    <div class="subscribe__inner reveal">
-      <p class="eyebrow" style="justify-content:center">Ne rien manquer</p>
-      <h2 class="section-title">Recevez chaque épisode</h2>
-      <form class="subscribe__form" onsubmit="return false;">
+  <!-- ============ 7 · LE CARNET ============ -->
+  <section class="carnet" id="abonnement">
+    <div class="carnet__inner reveal">
+      <p class="kicker">Le carnet</p>
+      <h2 class="carnet__title">Recevez chaque épisode</h2>
+      <form class="carnet__form" onsubmit="return false;">
         <input type="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" />
-        <button class="btn btn--solid" type="submit">Je m'abonne</button>
+        <button class="btn btn--solid" type="submit">Je m'inscris</button>
       </form>
       <nav class="platforms" aria-label="Plateformes d'écoute">
         <a href="#">Apple Podcasts</a><a href="#">Spotify</a><a href="#">Deezer</a><a href="#">RSS</a>
