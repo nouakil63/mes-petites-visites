@@ -25,39 +25,11 @@
 
   <!-- ============ LOADER (rideau qui s'ouvre) ============ -->
   <div class="sloader" id="sloader" aria-hidden="true">
-    <div class="sloader__curtain sloader__curtain--l"></div>
-    <div class="sloader__curtain sloader__curtain--r"></div>
-    <svg class="sloader__pelmet" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="pv" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#A52833"/><stop offset=".5" stop-color="#73131C"/><stop offset="1" stop-color="#460B11"/>
-        </linearGradient>
-        <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#F0D79A"/><stop offset=".5" stop-color="#C9A86A"/><stop offset="1" stop-color="#8F6C36"/>
-        </linearGradient>
-      </defs>
-      <path fill="url(#pv)" d="M0 0 H1200 V60 Q1100 188 1000 60 Q900 188 800 60 Q700 188 600 60 Q500 188 400 60 Q300 188 200 60 Q100 188 0 60 Z"/>
-      <rect width="1200" height="12" fill="#000" opacity=".18"/>
-      <rect y="2" width="1200" height="4" fill="url(#pg)" opacity=".8"/>
-      <path fill="none" stroke="url(#pg)" stroke-width="4" d="M1200 60 Q1100 188 1000 60 Q900 188 800 60 Q700 188 600 60 Q500 188 400 60 Q300 188 200 60 Q100 188 0 60"/>
-      <g fill="url(#pg)" stroke="url(#pg)" stroke-width="2.4">
-        <g><line x1="100" y1="120" x2="100" y2="150"/><ellipse cx="100" cy="158" rx="7" ry="12" stroke="none"/></g>
-        <g><line x1="300" y1="120" x2="300" y2="150"/><ellipse cx="300" cy="158" rx="7" ry="12" stroke="none"/></g>
-        <g><line x1="500" y1="120" x2="500" y2="150"/><ellipse cx="500" cy="158" rx="7" ry="12" stroke="none"/></g>
-        <g><line x1="700" y1="120" x2="700" y2="150"/><ellipse cx="700" cy="158" rx="7" ry="12" stroke="none"/></g>
-        <g><line x1="900" y1="120" x2="900" y2="150"/><ellipse cx="900" cy="158" rx="7" ry="12" stroke="none"/></g>
-        <g><line x1="1100" y1="120" x2="1100" y2="150"/><ellipse cx="1100" cy="158" rx="7" ry="12" stroke="none"/></g>
-      </g>
-    </svg>
-    <div class="sloader__light"></div>
+    <img class="sloader__art" data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" />
+    <div class="sloader__veil"></div>
     <div class="sloader__brand">
-      <svg class="sloader__logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
-        <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
-        <g fill="currentColor"><rect x="19" y="35" width="5" height="15"/><rect x="27" y="27" width="5" height="23"/><rect x="35" y="19" width="5" height="31"/><rect x="43" y="29" width="5" height="21"/></g>
-        <text class="w" x="60" y="31" font-size="18">mes petites</text>
-        <text class="w" x="60" y="49" font-size="18" letter-spacing="0.5">visites</text>
-      </svg>
-      <p class="sloader__title">Le Second Empire</p>
+      <p class="sloader__pre">mes petites visites présente</p>
+      <h1 class="sloader__title">Le Second Empire</h1>
       <div class="sloader__rule"></div>
       <p class="sloader__sub">Studio · entrez dans le tableau</p>
     </div>
@@ -72,11 +44,10 @@
       function finish() {
         if (done) return; done = true;
         el.classList.add("is-open");
-        setTimeout(function () { el.style.opacity = "0"; }, reduce ? 120 : 1600);
-        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 320 : 2100);
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 260 : 1250);
       }
       el.addEventListener("click", finish);
-      var minT = reduce ? 300 : 1700, start = Date.now();
+      var minT = reduce ? 300 : 2300, start = Date.now();
       function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
       if (document.readyState === "complete") go(); else window.addEventListener("load", go);
     })();
