@@ -22,33 +22,29 @@
     <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </svg>
 
-  <!-- ============ LOADER ============ -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader__brand">
-      <svg class="loader__logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
-        <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
-        <g fill="currentColor"><rect x="19" y="35" width="5" height="15"/><rect x="27" y="27" width="5" height="23"/><rect x="35" y="19" width="5" height="31"/><rect x="43" y="29" width="5" height="21"/></g>
-        <text class="w" x="60" y="31" font-size="18">mes petites</text>
-        <text class="w" x="60" y="49" font-size="18" letter-spacing="0.5">visites</text>
-      </svg>
-      <div class="loader__rule"></div>
-      <p class="loader__sub">Le Second Empire</p>
+  <!-- ============ LOADER (ouverture cinématographique) ============ -->
+  <div class="sloader" id="sloader" aria-hidden="true">
+    <img class="sloader__art" data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" />
+    <div class="sloader__veil"></div>
+    <div class="sloader__brand">
+      <p class="sloader__pre">mes petites visites présente</p>
+      <h1 class="sloader__title">Le Second Empire</h1>
+      <div class="sloader__rule"></div>
+      <p class="sloader__sub">Édition · entrez dans le tableau</p>
     </div>
   </div>
   <script>
     (function () {
-      var el = document.getElementById("loader"); if (!el) return;
+      var el = document.getElementById("sloader"); if (!el) return;
       var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (sessionStorage.getItem("mpv_seen")) { el.parentNode && el.parentNode.removeChild(el); return; }
       var done = false;
       function finish() {
         if (done) return; done = true;
         el.classList.add("is-open");
-        try { sessionStorage.setItem("mpv_seen", "1"); } catch (e) {}
-        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 900);
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 260 : 1250);
       }
       el.addEventListener("click", finish);
-      var minT = reduce ? 350 : 1700, start = Date.now();
+      var minT = reduce ? 300 : 2300, start = Date.now();
       function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
       if (document.readyState === "complete") go(); else window.addEventListener("load", go);
     })();

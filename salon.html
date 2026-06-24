@@ -22,6 +22,34 @@
     <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </svg>
 
+  <!-- ============ LOADER (ouverture cinématographique) ============ -->
+  <div class="sloader" id="sloader" aria-hidden="true">
+    <img class="sloader__art" data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" />
+    <div class="sloader__veil"></div>
+    <div class="sloader__brand">
+      <p class="sloader__pre">mes petites visites présente</p>
+      <h1 class="sloader__title">Le Second Empire</h1>
+      <div class="sloader__rule"></div>
+      <p class="sloader__sub">Parcours · entrez dans le tableau</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var el = document.getElementById("sloader"); if (!el) return;
+      var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var done = false;
+      function finish() {
+        if (done) return; done = true;
+        el.classList.add("is-open");
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 260 : 1250);
+      }
+      el.addEventListener("click", finish);
+      var minT = reduce ? 300 : 2300, start = Date.now();
+      function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
+      if (document.readyState === "complete") go(); else window.addEventListener("load", go);
+    })();
+  </script>
+
   <!-- ============ TOGGLE DE VERSION ============ -->
   <div class="vswitch" role="group" aria-label="Choisir la version">
     <a class="vswitch__opt" href="index.html">Édition</a>
