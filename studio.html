@@ -27,11 +27,9 @@
   <div class="sloader" id="sloader" aria-hidden="true">
     <div class="sloader__curtain sloader__curtain--l"></div>
     <div class="sloader__curtain sloader__curtain--r"></div>
-    <span class="sloader__tie sloader__tie--l"></span>
-    <span class="sloader__tie sloader__tie--r"></span>
-    <div class="sloader__light"></div>
     <div class="sloader__valance"></div>
-    <div class="sloader__glow"></div>
+    <div class="sloader__tassels"></div>
+    <div class="sloader__light"></div>
     <div class="sloader__brand">
       <svg class="sloader__logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
         <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
@@ -54,11 +52,11 @@
       function finish() {
         if (done) return; done = true;
         el.classList.add("is-open");
-        setTimeout(function () { el.style.opacity = "0"; }, reduce ? 120 : 1250);
-        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 320 : 1720);
+        setTimeout(function () { el.style.opacity = "0"; }, reduce ? 120 : 1600);
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 320 : 2100);
       }
       el.addEventListener("click", finish);
-      var minT = reduce ? 300 : 2000, start = Date.now();
+      var minT = reduce ? 300 : 1700, start = Date.now();
       function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
       if (document.readyState === "complete") go(); else window.addEventListener("load", go);
     })();
