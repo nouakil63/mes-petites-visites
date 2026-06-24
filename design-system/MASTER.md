@@ -26,7 +26,8 @@ mes-petites-visites.fr : le **bleu nuit #1A203C** sert de fond profond, la **cr�
   qui dansent avec la voix (RingWave), inspiré de Napoleonica. Lecteur réduit (barre)
   quand le pop-up est fermé.
 - **Sections bespoke** (anti-IA) : « Le tableau décrypté » avec pastilles cliquables
-  sur l'œuvre, « À la une », « À propos ».
+  sur l'œuvre, « À la une », « Qui vous parle ? » (portrait-cartel de la guide
+  Sophie Lefaure van Moorsel), « À propos ».
 - **Style** : premium sombre, plat + détails fins (filets d'or, chips, ombres douces
   cohérentes). Pas de glassmorphism gratuit, pas de néon.
 
