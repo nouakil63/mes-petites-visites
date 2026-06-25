@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Parcours — un podcast mes petites visites</title>
+  <meta name="description" content="Entrer dans le tableau de Winterhalter : un parcours sonore dans l'intimité de la cour du Second Empire. Un podcast mes petites visites." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/salon.css" />
+</head>
+<body>
+
+  <!-- icônes -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7Z"/></symbol>
+    <symbol id="i-fwd" viewBox="0 0 24 24"><path d="M12 5V2l5 4-5 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7Z"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- ============ LOADER (ouverture cinématographique) ============ -->
+  <div class="sloader" id="sloader" aria-hidden="true">
+    <img class="sloader__art" data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" />
+    <div class="sloader__veil"></div>
+    <div class="sloader__brand">
+      <p class="sloader__pre">mes petites visites présente</p>
+      <h1 class="sloader__title">Le Second Empire</h1>
+      <div class="sloader__rule"></div>
+      <p class="sloader__sub">Parcours · entrez dans le tableau</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var el = document.getElementById("sloader"); if (!el) return;
+      var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var done = false;
+      function finish() {
+        if (done) return; done = true;
+        el.classList.add("is-open");
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 260 : 1250);
+      }
+      el.addEventListener("click", finish);
+      var minT = reduce ? 300 : 2300, start = Date.now();
+      function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
+      if (document.readyState === "complete") go(); else window.addEventListener("load", go);
+    })();
+  </script>
+
+  <!-- ============ TOGGLE DE VERSION ============ -->
+  <div class="vswitch" role="group" aria-label="Choisir la version">
+    <a class="vswitch__opt" href="index.html">Édition</a>
+    <a class="vswitch__opt is-active" href="salon.html" aria-current="true">Parcours</a>
+    <a class="vswitch__opt" href="studio.html">Studio</a>
+    <a class="vswitch__opt" href="immersif.html">Immersif</a>
+    <a class="vswitch__opt" href="epure.html">Épure</a>
+    <a class="vswitch__opt" href="carte.html">Carte</a>
+    <a class="vswitch__opt" href="ecrin.html">Écrin</a>
+    <a class="vswitch__opt" href="expo.html">Expo</a>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="top">
+    <a class="navbar__logo" href="#top" aria-label="mes petites visites — accueil">
+      <svg viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
+        <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <g fill="currentColor"><rect x="19" y="35" width="5" height="15"/><rect x="27" y="27" width="5" height="23"/><rect x="35" y="19" width="5" height="31"/><rect x="43" y="29" width="5" height="21"/></g>
+        <text x="60" y="31" font-size="18" fill="currentColor" font-family="Cormorant Garamond, serif">mes petites</text>
+        <text x="60" y="49" font-size="18" fill="currentColor" font-family="Cormorant Garamond, serif" letter-spacing="0.5">visites</text>
+      </svg>
+    </a>
+    <div class="navbar__links">
+      <a href="#distribution">La distribution</a>
+      <a href="#scene">La scène</a>
+      <a href="#qui">La conteuse</a>
+      <a class="navbar__cta" href="#abonnement">S'abonner</a>
+    </div>
+  </nav>
+
+  <!-- ============ 1 · LE SEUIL ============ -->
+  <header class="seuil">
+    <div class="seuil__inner reveal">
+      <p class="kicker seuil__kicker">mes petites visites · série audio</p>
+      <h1 class="seuil__title">Le Second <em>Empire</em></h1>
+      <figure class="seuil__portal">
+        <div class="arch"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855" style="object-position:center 24%" onerror="this.style.display='none'" /></div>
+      </figure>
+      <p class="seuil__sub">Poussez la porte du salon. Entrez dans le tableau de Winterhalter — et dans l'intimité de la cour de l'Impératrice Eugénie.</p>
+      <button class="btn btn--solid seuil__listen" id="hero-listen" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter l'ouverture</button>
+    </div>
+    <span class="seuil__scroll" aria-hidden="true">Entrer<i></i></span>
+  </header>
+
+  <!-- ============ 2 · MANIFESTE ============ -->
+  <section class="manifeste">
+    <figure class="manifeste__cameo manifeste__cameo--l reveal"><div class="cameo"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="" style="object-position:18% 40%" onerror="this.closest('.manifeste__cameo').style.display='none'" /></div></figure>
+    <figure class="manifeste__cameo manifeste__cameo--r reveal"><div class="cameo"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="" style="object-position:82% 38%" onerror="this.closest('.manifeste__cameo').style.display='none'" /></div></figure>
+    <div class="manifeste__inner reveal">
+      <div class="fleuron"><span>✦</span></div>
+      <p class="manifeste__line">Chaque épisode est une <em>petite visite</em> : on suit Eugénie dans les jardins de Compiègne, on écoute le froissement des crinolines, on surprend les secrets d'un salon.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3 · LA DISTRIBUTION ============ -->
+  <section class="distribution" id="distribution">
+    <div class="section-head reveal">
+      <p class="kicker">La distribution</p>
+      <h2 class="display">Les figures du tableau</h2>
+      <p>Chaque épisode donne la parole à une figure de la scène. Choisissez la vôtre.</p>
+    </div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </section>
+
+  <!-- ============ 4 · ÉPISODE DU MOMENT ============ -->
+  <section class="spotlight" id="serie">
+    <div class="spotlight__inner">
+      <figure class="spotlight__art reveal">
+        <div class="arch"><img class="media" data-painting src="assets/img/eugenie.jpg" alt="" style="object-position:center 26%" onerror="this.style.display='none'" /></div>
+      </figure>
+      <div class="spotlight__body reveal">
+        <p class="kicker spotlight__kicker" id="feat-cat">Épisode 1 · Cour &amp; étiquette</p>
+        <h2 class="spotlight__title" id="feat-title">Les murmures du salon vert</h2>
+        <p class="spotlight__desc" id="feat-desc"></p>
+        <button class="btn btn--solid" id="feat-play" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter maintenant</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · LA SCÈNE ============ -->
+  <section class="scene" id="scene">
+    <div class="scene__head reveal">
+      <p class="kicker">L'œuvre, point par point</p>
+      <h2 class="display">La scène décryptée</h2>
+    </div>
+    <div class="scene__stage reveal">
+      <div class="scene__art" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855">
+        <img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855" onerror="this.style.display='none'" />
+        <button class="hotspot" style="left:50%; top:54%" data-title="La robe émeraude" data-cap="Au centre, l'Impératrice : la seule en vert profond. Une couleur de souveraineté qui ancre toute la composition autour d'elle." aria-label="La robe émeraude">1</button>
+        <button class="hotspot" style="left:24%; top:78%" data-title="Les fleurs du premier plan" data-cap="Chèvrefeuille, lilas et violettes ne sont pas décoratifs : ce sont des allégories de fidélité et de mémoire, signées par le peintre." aria-label="Les fleurs">2</button>
+        <button class="hotspot" style="left:75%; top:46%" data-title="Le ruban bleu" data-cap="Le bleu des rubans répond au ciel : Winterhalter orchestre une harmonie de cour, chaque dame placée selon un protocole strict." aria-label="Le ruban bleu">3</button>
+        <button class="hotspot" style="left:88%; top:82%" data-title="La signature" data-cap="Discrètement, l'artiste signe la scène d'apparat la plus célèbre du règne — une commande qui fixera l'image de la cour." aria-label="La signature">4</button>
+      </div>
+      <div class="scene__cartel" id="tableau-cap">
+        <p class="kicker">Détail</p>
+        <h3 id="cap-title">Choisissez un détail</h3>
+        <p id="cap-text">Touchez une pastille numérotée sur l'œuvre pour révéler sa lecture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · LA CONTEUSE ============ -->
+  <section class="conteuse" id="qui">
+    <div class="conteuse__inner reveal">
+      <div class="conteuse__body">
+        <p class="kicker">La conteuse</p>
+        <h2 class="display" style="font-size:clamp(2.1rem,4.4vw,3.4rem)">Qui vous parle ?</h2>
+        <p class="conteuse__lead"><b>Sophie Lefaure van Moorsel.</b> C'est moi qui vous accompagne, épisode après épisode — guide-conférencière, j'ai fait de Paris et de son histoire mon terrain de jeu.</p>
+        <p class="conteuse__text">Fille d'architecte, j'ai grandi l'œil levé vers les façades. Après des études de sciences politiques et des années à porter la parole de grandes institutions, j'ai choisi de raconter la ville autrement : par ses salons, ses portraits et ses petites histoires — avec, je l'avoue, une pointe d'humour belge.</p>
+        <p class="conteuse__sign">Sophie</p>
+        <div class="conteuse__meta">
+          <a class="btn btn--ghost" href="tel:+33610468024">06 10 46 80 24</a>
+          <a class="btn--text" href="#distribution">Commencer l'écoute →</a>
+        </div>
+      </div>
+      <figure class="conteuse__portrait">
+        <div class="cameo">
+          <img src="assets/img/sophie.jpg" alt="Sophie Lefaure van Moorsel, guide-conférencière et voix de la série" onerror="(function(im){var ex=['assets/img/sophie.jpeg','assets/img/sophie.png','assets/img/sophie.webp'];var n=+(im.dataset.i||0);if(n&lt;ex.length){im.dataset.i=n+1;im.src=ex[n];}else{var f=im.closest('.conteuse__portrait');if(f)f.classList.add('is-fallback');im.remove();}})(this)" />
+          <span class="conteuse__mono" aria-hidden="true">SL</span>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 7 · LE CARNET ============ -->
+  <section class="carnet" id="abonnement">
+    <div class="carnet__inner reveal">
+      <p class="kicker">Le carnet</p>
+      <h2 class="carnet__title">Recevez chaque épisode</h2>
+      <form class="carnet__form" onsubmit="return false;">
+        <input type="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" />
+        <button class="btn btn--solid" type="submit">Je m'inscris</button>
+      </form>
+      <nav class="platforms" aria-label="Plateformes d'écoute">
+        <a href="#">Apple Podcasts</a><a href="#">Spotify</a><a href="#">Deezer</a><a href="#">RSS</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <p class="footer__brand">mes petites visites</p>
+        <p class="footer__tag">Le Second Empire — série audio</p>
+      </div>
+      <p class="footer__note">Œuvre : Franz Xaver Winterhalter, <em>L'Impératrice Eugénie entourée de ses dames d'honneur</em> (1855), domaine public.</p>
+    </div>
+  </footer>
+
+  <!-- ============ POP-UP ============ -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__scrim" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="m-title">
+      <button class="modal__close" id="m-close" data-close aria-label="Fermer"><svg class="ico"><use href="#i-close"/></svg></button>
+      <div class="modal__art"><canvas id="modal-canvas" width="900" height="600" aria-hidden="true"></canvas></div>
+      <div class="modal__panel">
+        <p class="modal__cat" id="m-cat">Épisode 1 · Cour &amp; étiquette</p>
+        <h2 class="modal__title" id="m-title">Les murmures du salon vert</h2>
+        <p class="modal__desc" id="m-desc"></p>
+        <div class="modal__track" id="m-track"><div class="modal__fill" id="m-fill"></div></div>
+        <div class="modal__time"><span id="m-cur">00:00</span><span id="m-tot">00:00</span></div>
+        <div class="modal__controls">
+          <button class="ctrl" id="m-back" aria-label="Reculer de 15 secondes"><svg class="ico"><use href="#i-back"/></svg><i>15</i></button>
+          <button class="ctrl ctrl--main" id="m-toggle" aria-label="Lecture / pause"><svg class="ico"><use href="#i-play"/></svg></button>
+          <button class="ctrl" id="m-fwd" aria-label="Avancer de 15 secondes"><svg class="ico"><use href="#i-fwd"/></svg><i>15</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BARRE DE LECTURE RÉDUITE ============ -->
+  <aside class="bar" id="bar">
+    <div class="bar__fill" id="bar-fill"></div>
+    <button class="bar__open" id="bar-open" aria-label="Ouvrir le lecteur">
+      <span class="bar__thumb"><img data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" /></span>
+      <span class="bar__info"><span class="bar__title" id="bar-title">—</span><span class="bar__cat" id="bar-cat">—</span></span>
+      <svg class="ico bar__chev"><use href="#i-chev"/></svg>
+    </button>
+    <button class="bar__toggle" id="bar-toggle" aria-label="Lecture / pause"><svg class="ico"><use href="#i-play"/></svg></button>
+    <button class="bar__close" id="bar-close" aria-label="Arrêter"><svg class="ico"><use href="#i-close"/></svg></button>
+    <audio id="audio" preload="none"></audio>
+  </aside>
+
+  <script src="assets/js/episodes.js"></script>
+  <script src="assets/js/visualizer.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

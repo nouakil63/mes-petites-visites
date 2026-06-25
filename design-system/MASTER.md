@@ -11,9 +11,14 @@
 - **Plateforme** : web responsive (mobile-first), intégrable WordPress/Elementor.
 
 ## 2. Direction artistique
-**Parti pris : la cinémathèque sombre & premium** (façon plateforme d'écoute haut
-de gamme). Fond profond, dorures, le tableau de Winterhalter en pièce maîtresse
-(hero plein cadre, pochettes recadrées). Palette or + émeraude prélevée sur l'œuvre.
+**Parti pris : l'édition claire premium, rythmée clair/sombre.** Fond **crème/beige**
+chaud (#FAF3DD → sable, léger dégradé), texte **bleu nuit #1A203C**, **terracotta
+#B54144** en accent et état « en lecture », **sauge #8E9679** / **olive #4E5340** en
+touches. Registre éditorial : filets sur les intitulés, titres Playfair affirmés,
+flourish. **Rythme clair/sombre** : blocs bleu nuit pour le hero, *Le tableau
+décrypté*, *Abonnement* et le *footer* ; sections, cartes, *Qui vous parle ?* et
+*À la une* en clair. Palette relevée sur mes-petites-visites.fr (Elementor
+`elementor-kit-7`).
 
 - **Ouverture** : un **loader au logo** (logo + filet d'or + « Le Second Empire »)
   qui se fond/zoome dans la page. Une fois par session, passable au clic, coupé si
@@ -23,28 +28,35 @@ de gamme). Fond profond, dorures, le tableau de Winterhalter en pièce maîtress
   qui dansent avec la voix (RingWave), inspiré de Napoleonica. Lecteur réduit (barre)
   quand le pop-up est fermé.
 - **Sections bespoke** (anti-IA) : « Le tableau décrypté » avec pastilles cliquables
-  sur l'œuvre, « À la une », « À propos ».
+  sur l'œuvre, « À la une », « Qui vous parle ? » (portrait-cartel de la guide
+  Sophie Lefaure van Moorsel), « À propos ».
 - **Style** : premium sombre, plat + détails fins (filets d'or, chips, ombres douces
   cohérentes). Pas de glassmorphism gratuit, pas de néon.
 
-## 3. Couleurs (échantillonnées sur le tableau + charte du site)
-| Token | Hex | Usage |
-|---|---|---|
-| `--green-900` | `#0F2019` | mur le plus sombre |
-| `--green-800` | `#15271F` | fond hero / lecteur |
-| `--emerald`   | `#1F5C4D` | robe centrale, accents |
-| `--gold`      | `#C9A968` | texte/filets sur fond sombre |
-| `--gold-deep` | `#A9803F` | dorure du cadre, labels sur clair |
-| `--gold-dark` | `#7E5B27` | petit texte doré sur clair (contraste) |
-| `--ivory`     | `#F1E7CF` | texte sur sombre, surfaces |
-| `--paper`     | `#F7F2E6` | fond des sections claires |
-| `--rose`      | `#D38C8C` | accent (robes roses) |
-| `--blue`      | `#5B7FA6` | accent (rubans) |
-| `--ink`       | `#23201A` | texte principal sur clair |
-| `--navy`      | `#1A203C` | logo, pied de page (charte site) |
-| `--terracotta`| `#B54144` | état « en lecture » (charte site) |
+## 3. Couleurs — charte authentique mes-petites-visites.fr
+Relevée sur le site live (Elementor `elementor-kit-7`). Source de vérité.
 
-Contraste vérifié AA : ivoire/vert ≥ 7:1, ink/paper ≥ 12:1, gold-dark/paper ≥ 4.5:1.
+| Rôle (charte) | Hex | Usage dans la plateforme |
+|---|---|---|
+| Bleu nuit (primaire) | `#1A203C` | fond de marque ; texte foncé sur clair |
+| Terracotta (secondaire) | `#B54144` | état « en lecture », accents pleins |
+| Olive (accent) | `#4E5340` | accents verts profonds |
+| Sauge | `#8E9679` | chips, filets verts |
+| Crème | `#FAF3DD` | texte sur sombre, surfaces claires |
+| Blanc | `#FFFFFF` | surfaces, contrastes |
+| Gris | `#7A7A7A` | texte secondaire (site clair) |
+
+**Édition claire (effective)** — variables CSS :
+`--bg #F5ECD3` (page beige) · `--bg-2 #ECE0C0` (sable, sections alternées) ·
+`--surface #FFFCF5` (cartes blanches) · `--text #1A203C` (bleu nuit) ·
+`--text-2 #595E70` · `--gold #A8403F` (terracotta profond, labels/filets) ·
+`--gold-2 #8F3537` (emphase) · `--emerald #8E9679` (sauge) ·
+`--emerald-d #4E5340` (olive) · `--cream #FAF3DD` (ivoire — texte sur contextes
+sombres : hero, navbar transparente, pastilles sur image).
+*Les noms `--gold/--emerald` sont conservés pour compatibilité.*
+
+Contraste : bleu nuit `#1A203C` sur beige `#F5ECD3` ≈ 12:1 ; terracotta `#A8403F`
+sur beige ≈ 5:1 (labels) ; ivoire `#FAF3DD` sur terracotta `#B54144` ≈ 4.4:1 (CTA).
 
 ## 4. Typographie
 - **Display / art** : *Playfair Display* (titres, pochettes — touche éditoriale).

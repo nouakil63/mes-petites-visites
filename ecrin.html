@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Écrin — Le Second Empire · un podcast mes petites visites</title>
+  <meta name="description" content="Le Second Empire en haute couture numérique, autour du chef-d'œuvre de Winterhalter. Un podcast mes petites visites." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/ecrin.css" />
+</head>
+<body>
+
+  <!-- icônes -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7Z"/></symbol>
+    <symbol id="i-fwd" viewBox="0 0 24 24"><path d="M12 5V2l5 4-5 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7Z"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- ============ TOGGLE DE VERSION ============ -->
+  <div class="vswitch" role="group" aria-label="Choisir la version">
+    <a class="vswitch__opt" href="index.html">Édition</a>
+    <a class="vswitch__opt" href="salon.html">Parcours</a>
+    <a class="vswitch__opt" href="studio.html">Studio</a>
+    <a class="vswitch__opt" href="immersif.html">Immersif</a>
+    <a class="vswitch__opt" href="epure.html">Épure</a>
+    <a class="vswitch__opt" href="carte.html">Carte</a>
+    <a class="vswitch__opt is-active" href="ecrin.html" aria-current="true">Écrin</a>
+    <a class="vswitch__opt" href="expo.html">Expo</a>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="top">
+    <a class="navbar__logo" href="#top">mes petites visites</a>
+    <div class="navbar__links">
+      <a href="#gallery">Épisodes</a>
+      <a href="#detail">Le tableau</a>
+      <a href="#qui">Qui vous parle ?</a>
+      <a class="navbar__cta" href="#abonnement">S'abonner</a>
+    </div>
+  </nav>
+
+  <!-- ============ 1 · HERO ============ -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Série audio · mes petites visites</p>
+      <h1 class="hero-title" data-split>Le Second Empire</h1>
+      <p class="hero-subtitle">La grâce d'une cour, capturée dans l'éternité du clair-obscur.</p>
+      <div class="hero-actions">
+        <button class="btn" id="hero-listen" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter l'épisode 1</button>
+        <a class="btn" href="#gallery">Voir les épisodes</a>
+      </div>
+    </div>
+    <span class="hero-scroll" aria-hidden="true">défiler</span>
+  </section>
+
+  <!-- ============ PANNEAU IVOIRE ============ -->
+  <div class="sheet">
+
+    <!-- 2 · ÉDITORIAL / À LA UNE -->
+    <section class="editorial container" id="serie">
+      <div class="editorial-grid">
+        <div class="editorial-text">
+          <p class="eyebrow" id="feat-cat">Épisode 1 · Cour &amp; étiquette</p>
+          <h2 id="feat-title">Les murmures du salon vert</h2>
+          <p><span class="lettrine">I</span>maginez le bruissement de la soie foulant l'herbe des Tuileries. Derrière la grâce d'un salon se joue une géographie des faveurs, dont chaque dame connaît les frontières mouvantes.</p>
+          <p id="feat-desc"></p>
+          <button class="btn btn--solid" id="feat-play" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter maintenant</button>
+        </div>
+        <figure class="cameo cameo-1">
+          <img data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855" onerror="this.style.display='none'" />
+        </figure>
+        <p class="editorial-aside">« Le détail n'est pas un ornement : le détail est l'œuvre elle-même. »<br><span style="font-size:.7em;font-style:normal;letter-spacing:.06em">— d'après Winterhalter</span></p>
+      </div>
+    </section>
+
+    <!-- 3 · GALERIE -->
+    <section class="gallery" id="gallery">
+      <h2 class="gallery__title">Le Cercle des Confidentes</h2>
+      <div class="grid" id="grid" aria-live="polite"></div>
+    </section>
+
+    <!-- 4 · LE DÉTAIL (tableau décrypté) -->
+    <section class="detail" id="detail">
+      <div class="detail__head"><h2>Le tableau décrypté</h2></div>
+      <div class="detail__inner">
+        <figure class="detail__art" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855">
+          <img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855" onerror="this.style.display='none'" />
+          <button class="hotspot" style="left:50%; top:54%" data-title="La robe émeraude" data-cap="Au centre, l'Impératrice : la seule en vert profond. Une couleur de souveraineté qui ancre toute la composition autour d'elle." aria-label="La robe émeraude">1</button>
+          <button class="hotspot" style="left:24%; top:78%" data-title="Les fleurs du premier plan" data-cap="Chèvrefeuille, lilas et violettes ne sont pas décoratifs : ce sont des allégories de fidélité et de mémoire, signées par le peintre." aria-label="Les fleurs">2</button>
+          <button class="hotspot" style="left:75%; top:46%" data-title="Le ruban bleu" data-cap="Le bleu des rubans répond au ciel : Winterhalter orchestre une harmonie de cour, chaque dame placée selon un protocole strict." aria-label="Le ruban bleu">3</button>
+          <button class="hotspot" style="left:88%; top:82%" data-title="La signature" data-cap="Discrètement, l'artiste signe la scène d'apparat la plus célèbre du règne — une commande qui fixera l'image de la cour." aria-label="La signature">4</button>
+        </figure>
+        <div class="detail__cap" id="tableau-cap">
+          <p class="eyebrow">Le détail</p>
+          <h3 id="cap-title">Choisissez un détail</h3>
+          <p id="cap-text">Touchez une pastille sur l'œuvre pour révéler sa lecture.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 bis · QUI VOUS PARLE ? -->
+    <section class="voice container" id="qui">
+      <div class="voice-grid">
+        <figure class="cameo voice-cameo">
+          <img src="assets/img/sophie.jpg" alt="Sophie Lefaure van Moorsel, guide-conférencière et voix de la série" onerror="(function(im){var ex=['assets/img/sophie.jpeg','assets/img/sophie.png','assets/img/sophie.webp'];var n=+(im.dataset.i||0);if(n&lt;ex.length){im.dataset.i=n+1;im.src=ex[n];}else{var f=im.closest('.voice-cameo');if(f)f.classList.add('is-fallback');im.remove();}})(this)" />
+          <span class="voice-mono" aria-hidden="true">SL</span>
+        </figure>
+        <div class="voice-text">
+          <p class="eyebrow">Qui vous parle ?</p>
+          <h2>Sophie Lefaure van Moorsel</h2>
+          <p>C'est moi qui vous accompagne, épisode après épisode. Guide-conférencière, fille d'architecte, j'ai grandi l'œil levé vers les façades, et fait de Paris et du Second Empire mon terrain de jeu.</p>
+          <p>Après des études de sciences politiques et des années à porter la parole de grandes institutions, j'ai choisi de raconter la ville autrement : par ses salons, ses portraits et ses petites histoires — avec, je l'avoue, une pointe d'humour belge.</p>
+          <p class="voice-sign">Sophie</p>
+          <a class="btn btn--solid" href="tel:+33610468024">06 10 46 80 24</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ 5 · LAMPE-TORCHE ============ -->
+  <section class="flash" id="flash">
+    <div class="flash__layer flash__ambient">
+      <h2 class="quote">« Dans le secret d'un salon, l'histoire se murmure à qui sait écouter la lumière. »<span class="flash__sign">— Sophie, votre guide</span></h2>
+    </div>
+    <div class="flash__layer flash__lit">
+      <h2 class="quote">« Dans le secret d'un salon, l'histoire se murmure à qui sait écouter la lumière. »<span class="flash__sign">— Sophie, votre guide</span></h2>
+    </div>
+    <span class="flash__hint">déplacez la lumière</span>
+  </section>
+
+  <!-- ============ 6 · L'ENVOI ============ -->
+  <footer class="envoi" id="abonnement">
+    <div class="container">
+      <h2 class="envoi__logo">mes petites visites</h2>
+      <p class="envoi__sub">Recevez chaque épisode, dès sa parution.</p>
+      <form class="envoi__form" onsubmit="return false;">
+        <input type="email" placeholder="votre adresse e-mail" aria-label="Votre adresse e-mail" />
+        <button class="btn" type="submit">S'abonner</button>
+      </form>
+      <nav class="envoi__links" aria-label="Liens">
+        <a href="#serie">Le manifeste</a>
+        <a href="#gallery">Les épisodes</a>
+        <a href="tel:+33610468024">Correspondance</a>
+      </nav>
+      <p class="envoi__fine">Œuvre : F. X. Winterhalter, 1855 · domaine public — Numérisé pour l'éternité</p>
+    </div>
+  </footer>
+
+  <!-- ============ POP-UP ============ -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__scrim" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="m-title">
+      <button class="modal__close" id="m-close" data-close aria-label="Fermer"><svg class="ico"><use href="#i-close"/></svg></button>
+      <div class="modal__art"><canvas id="modal-canvas" data-rw="dark" width="900" height="600" aria-hidden="true"></canvas></div>
+      <div class="modal__panel">
+        <p class="modal__cat" id="m-cat">Épisode 1 · Cour &amp; étiquette</p>
+        <h2 class="modal__title" id="m-title">Les murmures du salon vert</h2>
+        <p class="modal__desc" id="m-desc"></p>
+        <div class="modal__track" id="m-track"><div class="modal__fill" id="m-fill"></div></div>
+        <div class="modal__time"><span id="m-cur">00:00</span><span id="m-tot">00:00</span></div>
+        <div class="modal__controls">
+          <button class="ctrl" id="m-back" aria-label="Reculer de 15 secondes"><svg class="ico"><use href="#i-back"/></svg><i>15</i></button>
+          <button class="ctrl ctrl--main" id="m-toggle" aria-label="Lecture / pause"><svg class="ico"><use href="#i-play"/></svg></button>
+          <button class="ctrl" id="m-fwd" aria-label="Avancer de 15 secondes"><svg class="ico"><use href="#i-fwd"/></svg><i>15</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BANDE D'ÉCOUTE ============ -->
+  <aside class="bar" id="bar">
+    <div class="bar__fill" id="bar-fill"></div>
+    <button class="bar__open" id="bar-open" aria-label="Ouvrir le lecteur">
+      <span class="bar__thumb"><img data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" /></span>
+      <span class="bar__info"><span class="bar__title" id="bar-title">—</span><span class="bar__cat" id="bar-cat">—</span></span>
+      <svg class="ico bar__chev"><use href="#i-chev"/></svg>
+    </button>
+    <button class="bar__toggle" id="bar-toggle" aria-label="Lecture / pause"><svg class="ico"><use href="#i-play"/></svg></button>
+    <button class="bar__close" id="bar-close" aria-label="Arrêter"><svg class="ico"><use href="#i-close"/></svg></button>
+    <audio id="audio" preload="none"></audio>
+  </aside>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/episodes.js"></script>
+  <script src="assets/js/visualizer.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    (function () {
+      var title = document.querySelector("[data-split]");
+      function reveal() {
+        document.querySelectorAll(".char").forEach(function (c) { c.style.transform = "none"; });
+      }
+      try {
+        if (window.gsap && title) {
+          // découpe le titre par mots puis par lettres (pas de coupure en milieu de mot)
+          var words = title.textContent.split(" ");
+          title.innerHTML = "";
+          words.forEach(function (w, wi) {
+            var word = document.createElement("span");
+            word.style.display = "inline-block"; word.style.whiteSpace = "nowrap";
+            w.split("").forEach(function (ch) {
+              var wrap = document.createElement("span"); wrap.className = "char-wrap";
+              var c = document.createElement("span"); c.className = "char"; c.textContent = ch;
+              wrap.appendChild(c); word.appendChild(wrap);
+            });
+            title.appendChild(word);
+            if (wi < words.length - 1) title.appendChild(document.createTextNode(" "));
+          });
+
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.set(".char", { yPercent: 115 });
+          gsap.timeline()
+            .to(".char", { yPercent: 0, duration: 1.1, ease: "power4.out", stagger: 0.04, delay: 0.15 })
+            .from(".hero-eyebrow", { opacity: 0, y: 16, duration: 1 }, 0.25)
+            .from(".hero-subtitle", { opacity: 0, y: 18, duration: 1.1 }, "-=0.7")
+            .from(".hero-actions", { opacity: 0, y: 18, duration: 1 }, "-=0.75");
+
+          gsap.to(".cameo-1 img", { yPercent: -14, ease: "none", scrollTrigger: { trigger: ".editorial", start: "top bottom", end: "bottom top", scrub: true } });
+
+          gsap.utils.toArray("#grid .card").forEach(function (card) {
+            gsap.from(card, { opacity: 0, y: 80, duration: 1, ease: "power3.out", scrollTrigger: { trigger: card, start: "top 92%" } });
+          });
+          ScrollTrigger.refresh();
+        }
+      } catch (e) { reveal(); }
+      // filet de sécurité : jamais de titre invisible
+      setTimeout(reveal, 3600);
+
+      // effet lampe-torche
+      var flash = document.getElementById("flash");
+      if (flash) {
+        flash.addEventListener("mousemove", function (e) {
+          var r = flash.getBoundingClientRect();
+          flash.style.setProperty("--cursor-x", (e.clientX - r.left) + "px");
+          flash.style.setProperty("--cursor-y", (e.clientY - r.top) + "px");
+        });
+        flash.addEventListener("mouseleave", function () {
+          flash.style.setProperty("--cursor-x", "50%");
+          flash.style.setProperty("--cursor-y", "50%");
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

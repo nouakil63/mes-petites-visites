@@ -22,37 +22,45 @@
     <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </svg>
 
-  <!-- ============ LOADER ============ -->
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader__brand">
-      <svg class="loader__logo" viewBox="0 0 224 64" role="img" aria-label="mes petites visites">
-        <rect x="1.5" y="1.5" width="221" height="61" rx="13" fill="none" stroke="currentColor" stroke-width="1.6"/>
-        <g fill="currentColor"><rect x="19" y="35" width="5" height="15"/><rect x="27" y="27" width="5" height="23"/><rect x="35" y="19" width="5" height="31"/><rect x="43" y="29" width="5" height="21"/></g>
-        <text class="w" x="60" y="31" font-size="18">mes petites</text>
-        <text class="w" x="60" y="49" font-size="18" letter-spacing="0.5">visites</text>
-      </svg>
-      <div class="loader__rule"></div>
-      <p class="loader__sub">Le Second Empire</p>
+  <!-- ============ LOADER (ouverture cinématographique) ============ -->
+  <div class="sloader" id="sloader" aria-hidden="true">
+    <img class="sloader__art" data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" />
+    <div class="sloader__veil"></div>
+    <div class="sloader__brand">
+      <p class="sloader__pre">mes petites visites présente</p>
+      <h1 class="sloader__title">Le Second Empire</h1>
+      <div class="sloader__rule"></div>
+      <p class="sloader__sub">Édition · entrez dans le tableau</p>
     </div>
   </div>
   <script>
     (function () {
-      var el = document.getElementById("loader"); if (!el) return;
+      var el = document.getElementById("sloader"); if (!el) return;
       var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (sessionStorage.getItem("mpv_seen")) { el.parentNode && el.parentNode.removeChild(el); return; }
       var done = false;
       function finish() {
         if (done) return; done = true;
         el.classList.add("is-open");
-        try { sessionStorage.setItem("mpv_seen", "1"); } catch (e) {}
-        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 200 : 900);
+        setTimeout(function () { el.parentNode && el.parentNode.removeChild(el); }, reduce ? 260 : 1250);
       }
       el.addEventListener("click", finish);
-      var minT = reduce ? 350 : 1700, start = Date.now();
+      var minT = reduce ? 300 : 2300, start = Date.now();
       function go() { setTimeout(finish, Math.max(0, minT - (Date.now() - start))); }
       if (document.readyState === "complete") go(); else window.addEventListener("load", go);
     })();
   </script>
+
+  <!-- ============ TOGGLE DE VERSION ============ -->
+  <div class="vswitch" role="group" aria-label="Choisir la version">
+    <a class="vswitch__opt is-active" href="index.html" aria-current="true">Édition</a>
+    <a class="vswitch__opt" href="salon.html">Parcours</a>
+    <a class="vswitch__opt" href="studio.html">Studio</a>
+    <a class="vswitch__opt" href="immersif.html">Immersif</a>
+    <a class="vswitch__opt" href="epure.html">Épure</a>
+    <a class="vswitch__opt" href="carte.html">Carte</a>
+    <a class="vswitch__opt" href="ecrin.html">Écrin</a>
+    <a class="vswitch__opt" href="expo.html">Expo</a>
+  </div>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar" id="top">
@@ -68,6 +76,7 @@
       <a href="#serie">La série</a>
       <a href="#episodes">Épisodes</a>
       <a href="#tableau">Le tableau</a>
+      <a href="#qui">Qui vous parle ?</a>
       <a href="#apropos">À propos</a>
       <a class="navbar__cta" href="#abonnement">S'abonner</a>
     </div>
@@ -139,6 +148,31 @@
         <p class="eyebrow">Détail</p>
         <h3 id="cap-title">Choisissez un détail</h3>
         <p id="cap-text">Touchez une pastille dorée sur le tableau pour révéler sa lecture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUI VOUS PARLE ? ============ -->
+  <section class="voice" id="qui">
+    <div class="voice__inner reveal">
+      <figure class="voice__portrait">
+        <img src="assets/img/sophie.jpg" alt="Sophie Lefaure van Moorsel, guide-conférencière et voix de la série" onerror="(function(im){var ex=['assets/img/sophie.jpeg','assets/img/sophie.png','assets/img/sophie.webp'];var n=+(im.dataset.i||0);if(n&lt;ex.length){im.dataset.i=n+1;im.src=ex[n];}else{var f=im.closest('.voice__portrait');if(f)f.classList.add('is-fallback');im.remove();}})(this)" />
+        <span class="voice__mono" aria-hidden="true">SL</span>
+        <figcaption class="voice__cartel">
+          <strong>Sophie Lefaure van Moorsel</strong>
+          <span>Guide-conférencière</span>
+        </figcaption>
+      </figure>
+      <div class="voice__body">
+        <p class="eyebrow">Votre guide</p>
+        <h2 class="section-title">Qui vous parle ?</h2>
+        <p class="voice__lead"><b>Sophie Lefaure van Moorsel.</b> C'est moi qui vous accompagne, épisode après épisode — guide-conférencière, j'ai fait de Paris et de son histoire mon terrain de jeu, et du Second Empire une passion qui ne me quitte pas.</p>
+        <p class="voice__text">Fille d'architecte, j'ai grandi l'œil levé vers les façades. Après des études de sciences politiques et des années passées à porter la parole de grandes institutions, j'ai choisi de raconter la ville autrement : par ses salons, ses portraits et ses petites histoires — avec, je l'avoue, une pointe d'humour belge.</p>
+        <p class="voice__sign">Sophie</p>
+        <div class="voice__meta">
+          <a class="btn btn--ghost" href="tel:+33610468024">06 10 46 80 24</a>
+          <a class="voice__link" href="#episodes">Commencer l'écoute →</a>
+        </div>
       </div>
     </div>
   </section>

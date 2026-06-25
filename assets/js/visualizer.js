@@ -85,15 +85,22 @@
     get level() { let m = 0; for (let i = 0; i < this._smooth.length; i++) m = Math.max(m, this._smooth[i]); return m; }
   }
 
+  /* palettes du médaillon — choisies via canvas[data-rw] (défaut : crème) */
+  const RW_PALS = {
+    cream: { bg: ["#FBF4E2", "#F1E6C8", "#E6D8B2"], rings: "26,32,60", aura: "181,65,68", ripple: "143,53,55", barLo: [196,107,90], barHi: [143,53,55], frame: "26,32,60" },
+    dark:  { bg: ["#241F16", "#1A1712", "#0E0D0A"], rings: "240,232,210", aura: "201,168,106", ripple: "201,168,106", barLo: [127,160,127], barHi: [201,168,106], frame: "201,168,106" },
+    ink:   { bg: ["#EFE7D2", "#E3D8BB", "#D6C9A6"], rings: "35,32,26", aura: "138,45,36", ripple: "60,52,40", barLo: [124,112,90], barHi: [35,32,26], frame: "35,32,26" }
+  };
+
   /* ---------------- RingWave : la pochette animée ---------------- */
   class RingWave {
     constructor(canvas, engine, opts = {}) {
       this.canvas = canvas; this.ctx = canvas.getContext("2d"); this.engine = engine;
       this.image = opts.image || null;
-      this.bars = opts.bars || 15;
-      // palette du tableau : or + émeraude (+ ivoire en lueur)
-      this.rings = ["#C9A24B", "#1E4A3C", "#D8B25A", "#15302A", "#B8923F", "#0F2620"];
-      this.ripples = []; this._beat = 0; this._raf = null; this._vis = true;
+      this.pal = RW_PALS[(canvas.dataset && canvas.dataset.rw) || "cream"] || RW_PALS.cream;
+      this.seg = (opts.seg || 72) & ~1;     // barres de la couronne (nombre pair)
+      this.ripples = []; this._beat = 0; this._raf = null;
+      this._spin = 0;                        // lente rotation de la couronne
       this.dpr = Math.min(2, window.devicePixelRatio || 1);
       this.fit(); this._onR = () => this.fit(); window.addEventListener("resize", this._onR);
     }
@@ -118,74 +125,85 @@
 
     _draw() {
       const ctx = this.ctx, dpr = this.dpr, W = this.w * dpr, H = this.h * dpr;
-      const cx = W / 2, cy = H / 2;
+      const cx = W / 2, cy = H / 2, R = Math.min(W, H);
       ctx.clearRect(0, 0, W, H);
 
-      const spec = this.engine.sample(this.bars);
+      const half = this.seg >> 1;
+      const spec = this.engine.sample(half);
       const level = this.engine.level;
       const t = performance.now() / 1000;
+      const breathe = REDUCED ? 0.5 : (Math.sin(t * 0.9) * 0.5 + 0.5);
 
-      // — fond : ondes concentriques façon papier découpé —
+      // — fond : dégradé (palette selon canvas[data-rw]) —
+      const P = this.pal;
+      const bg = ctx.createRadialGradient(cx, cy * 0.82, 0, cx, cy, Math.hypot(W, H) / 2);
+      bg.addColorStop(0, P.bg[0]); bg.addColorStop(0.55, P.bg[1]); bg.addColorStop(1, P.bg[2]);
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+      // — anneaux papier-découpé, très discrets (clin d'œil à la charte) —
       const corner = Math.hypot(W, H) / 2;
-      const n = this.rings.length;
-      const pulse = 1 + level * 0.05;
-      const breathe = REDUCED ? 0 : (Math.sin(t * 1.1) * 0.012);
-      for (let i = n - 1; i >= 0; i--) {
-        const rr = corner * ((i + 1) / n) * (pulse + breathe);
-        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2);
-        ctx.fillStyle = this.rings[i % this.rings.length];
-        ctx.fill();
+      for (let i = 4; i >= 1; i--) {
+        ctx.beginPath(); ctx.arc(cx, cy, corner * (i / 4) * (1 + level * 0.03), 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(" + P.rings + ",0.05)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
       }
-      // halo central chaud
-      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, corner * 0.5);
-      halo.addColorStop(0, "rgba(226,199,126," + (0.10 + level * 0.18) + ")");
-      halo.addColorStop(1, "rgba(226,199,126,0)");
-      ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, corner * 0.5, 0, Math.PI * 2); ctx.fill();
 
-      // — ondes qui naissent sur les pics de voix —
-      if (!REDUCED && level > 0.42 && t - this._beat > 0.18) { this.ripples.push({ r: H * 0.16, a: 0.5 }); this._beat = t; }
+      // — aura chaude qui respire derrière le médaillon —
+      const auraR = R * (0.42 + level * 0.12 + breathe * 0.02);
+      const aura = ctx.createRadialGradient(cx, cy, R * 0.1, cx, cy, auraR);
+      aura.addColorStop(0, "rgba(" + P.aura + "," + (0.12 + level * 0.22) + ")");
+      aura.addColorStop(0.55, "rgba(" + P.aura + ",0.06)");
+      aura.addColorStop(1, "rgba(" + P.aura + ",0)");
+      ctx.fillStyle = aura; ctx.beginPath(); ctx.arc(cx, cy, auraR, 0, Math.PI * 2); ctx.fill();
+
+      // — ondes nées sur les pics de voix —
+      if (!REDUCED && level > 0.4 && t - this._beat > 0.16) { this.ripples.push({ r: R * 0.22, a: 0.5 }); this._beat = t; }
       for (let i = this.ripples.length - 1; i >= 0; i--) {
-        const rp = this.ripples[i]; rp.r += corner * 0.012; rp.a -= 0.012;
+        const rp = this.ripples[i]; rp.r += R * 0.006; rp.a -= 0.011;
         if (rp.a <= 0) { this.ripples.splice(i, 1); continue; }
         ctx.beginPath(); ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(226,199,126," + rp.a + ")"; ctx.lineWidth = 1.4 * dpr; ctx.stroke();
+        ctx.strokeStyle = "rgba(" + P.ripple + "," + (rp.a * 0.9) + ")"; ctx.lineWidth = 1.3 * dpr; ctx.stroke();
       }
 
-      // — le tableau découpé en barres verticales —
-      const region = W * 0.84, startX = cx - region / 2;
-      const gap = (region / this.bars) * 0.16, bw = region / this.bars - gap;
-      const maxH = H * 0.78, minH = H * 0.12;
-      ctx.save();
-      ctx.beginPath();
-      for (let i = 0; i < this.bars; i++) {
-        const bh = minH + spec[i] * (maxH - minH);
-        const x = startX + i * (bw + gap), y = cy - bh / 2;
-        this._roundRect(ctx, x, y, bw, bh, Math.min(bw / 2, 4 * dpr));
+      // — couronne égaliseur radiale (symétrique gauche/droite) —
+      const medR = R * 0.205, ri = medR + R * 0.026;
+      const barMax = R * 0.165, barMin = R * 0.012;
+      this._spin += REDUCED ? 0 : 0.0014;
+      ctx.lineCap = "round";
+      ctx.lineWidth = Math.max(1.6 * dpr, ((2 * Math.PI * ri) / this.seg) * 0.46);
+      for (let i = 0; i < this.seg; i++) {
+        const v = spec[i < half ? i : this.seg - 1 - i];
+        const a = this._spin - Math.PI / 2 + (i / this.seg) * Math.PI * 2;
+        const ca = Math.cos(a), sa = Math.sin(a), len = barMin + v * barMax;
+        const k = Math.min(1, 0.22 + v);
+        const cr = (P.barLo[0] + (P.barHi[0] - P.barLo[0]) * k) | 0, cg = (P.barLo[1] + (P.barHi[1] - P.barLo[1]) * k) | 0, cb = (P.barLo[2] + (P.barHi[2] - P.barLo[2]) * k) | 0;
+        ctx.strokeStyle = "rgba(" + cr + "," + cg + "," + cb + "," + (0.62 + v * 0.38) + ")";
+        ctx.beginPath();
+        ctx.moveTo(cx + ca * ri, cy + sa * ri);
+        ctx.lineTo(cx + ca * (ri + len), cy + sa * (ri + len));
+        ctx.stroke();
       }
-      ctx.clip();
+
+      // — médaillon central : le tableau découpé en rond —
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx, cy, medR, 0, Math.PI * 2); ctx.clip();
       if (this.image && this.image.complete && this.image.naturalWidth) {
-        this._coverRect(this.image, startX, cy - maxH / 2, region, maxH, 0.34);
-        // léger vernis sombre pour la lisibilité
-        ctx.fillStyle = "rgba(15,24,20,0.12)"; ctx.fillRect(startX, cy - maxH / 2, region, maxH);
+        const bias = 0.32 + (REDUCED ? 0 : Math.sin(t * 0.5) * 0.05);
+        this._coverRect(this.image, cx - medR, cy - medR, medR * 2, medR * 2, bias);
+        const vg = ctx.createRadialGradient(cx, cy - medR * 0.25, medR * 0.2, cx, cy, medR);
+        vg.addColorStop(0, "rgba(17,21,42,0)"); vg.addColorStop(1, "rgba(17,21,42,0.42)");
+        ctx.fillStyle = vg; ctx.fillRect(cx - medR, cy - medR, medR * 2, medR * 2);
       } else {
-        const g = ctx.createLinearGradient(0, cy - maxH / 2, 0, cy + maxH / 2);
-        g.addColorStop(0, "#E2C77E"); g.addColorStop(1, "#B8923F");
-        ctx.fillStyle = g; ctx.fillRect(startX, cy - maxH / 2, region, maxH);
+        const g = ctx.createLinearGradient(0, cy - medR, 0, cy + medR);
+        g.addColorStop(0, "#EDC6B4"); g.addColorStop(1, "#B54144");
+        ctx.fillStyle = g; ctx.fillRect(cx - medR, cy - medR, medR * 2, medR * 2);
       }
       ctx.restore();
 
-      // liseré or sur chaque barre (souligne le découpage)
-      ctx.strokeStyle = "rgba(226,199,126,0.28)"; ctx.lineWidth = 1 * dpr;
-      for (let i = 0; i < this.bars; i++) {
-        const bh = minH + spec[i] * (maxH - minH);
-        const x = startX + i * (bw + gap), y = cy - bh / 2;
-        this._roundRect(ctx, x, y, bw, bh, Math.min(bw / 2, 4 * dpr)); ctx.stroke();
-      }
-    }
-    _roundRect(ctx, x, y, w, h, r) {
-      ctx.beginPath(); ctx.moveTo(x + r, y);
-      ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
-      ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+      // — cadre du médaillon : double filet (selon palette) —
+      ctx.beginPath(); ctx.arc(cx, cy, medR, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(" + P.frame + ",0.82)"; ctx.lineWidth = 2 * dpr; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, medR + 3.5 * dpr, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(" + P.frame + ",0.16)"; ctx.lineWidth = 1 * dpr; ctx.stroke();
     }
   }
 
