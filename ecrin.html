@@ -174,48 +174,45 @@
   <script src="assets/js/app.js"></script>
   <script>
     (function () {
-      var hero = document.querySelector(".hero-eyebrow"), sub = document.querySelector(".hero-subtitle"), act = document.querySelector(".hero-actions");
       var title = document.querySelector("[data-split]");
-
-      if (!window.gsap) {
-        [hero, sub, act].forEach(function (e) { if (e) e.style.opacity = 1; });
-      } else {
-        // découpe le titre par mots puis par lettres (pas de coupure en milieu de mot)
-        var words = title.textContent.split(" ");
-        title.innerHTML = "";
-        words.forEach(function (w, wi) {
-          var word = document.createElement("span");
-          word.style.display = "inline-block"; word.style.whiteSpace = "nowrap";
-          w.split("").forEach(function (ch) {
-            var wrap = document.createElement("span"); wrap.className = "char-wrap";
-            var c = document.createElement("span"); c.className = "char"; c.textContent = ch;
-            wrap.appendChild(c); word.appendChild(wrap);
-          });
-          title.appendChild(word);
-          if (wi < words.length - 1) title.appendChild(document.createTextNode(" "));
-        });
-
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.set(".char", { yPercent: 115 });
-        var tl = gsap.timeline();
-        tl.to(".char", { yPercent: 0, duration: 1.1, ease: "power4.out", stagger: 0.04, delay: 0.15 })
-          .from(".hero-eyebrow", { opacity: 0, y: 16, duration: 1 }, 0.2)
-          .to(".hero-eyebrow", { opacity: 1, duration: .01 }, 0.2)
-          .from(".hero-subtitle", { opacity: 0, y: 18, duration: 1.2 }, "-=0.7")
-          .to(".hero-subtitle", { opacity: 1, duration: .01 }, "<")
-          .from(".hero-actions", { opacity: 0, y: 18, duration: 1 }, "-=0.8")
-          .to(".hero-actions", { opacity: 1, duration: .01 }, "<");
-
-        // parallaxe du camée
-        gsap.to(".cameo-1 img", { yPercent: -14, ease: "none", scrollTrigger: { trigger: ".editorial", start: "top bottom", end: "bottom top", scrub: true } });
-
-        // apparition en cascade des cartes (générées par app.js)
-        gsap.utils.toArray("#grid .card").forEach(function (card, i) {
-          gsap.from(card, { opacity: 0, y: 90, duration: 1.1, ease: "power3.out", delay: (i % 3) * 0.12,
-            scrollTrigger: { trigger: "#gallery", start: "top 65%" } });
-        });
-        ScrollTrigger.refresh();
+      function reveal() {
+        document.querySelectorAll(".char").forEach(function (c) { c.style.transform = "none"; });
       }
+      try {
+        if (window.gsap && title) {
+          // découpe le titre par mots puis par lettres (pas de coupure en milieu de mot)
+          var words = title.textContent.split(" ");
+          title.innerHTML = "";
+          words.forEach(function (w, wi) {
+            var word = document.createElement("span");
+            word.style.display = "inline-block"; word.style.whiteSpace = "nowrap";
+            w.split("").forEach(function (ch) {
+              var wrap = document.createElement("span"); wrap.className = "char-wrap";
+              var c = document.createElement("span"); c.className = "char"; c.textContent = ch;
+              wrap.appendChild(c); word.appendChild(wrap);
+            });
+            title.appendChild(word);
+            if (wi < words.length - 1) title.appendChild(document.createTextNode(" "));
+          });
+
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.set(".char", { yPercent: 115 });
+          gsap.timeline()
+            .to(".char", { yPercent: 0, duration: 1.1, ease: "power4.out", stagger: 0.04, delay: 0.15 })
+            .from(".hero-eyebrow", { opacity: 0, y: 16, duration: 1 }, 0.25)
+            .from(".hero-subtitle", { opacity: 0, y: 18, duration: 1.1 }, "-=0.7")
+            .from(".hero-actions", { opacity: 0, y: 18, duration: 1 }, "-=0.75");
+
+          gsap.to(".cameo-1 img", { yPercent: -14, ease: "none", scrollTrigger: { trigger: ".editorial", start: "top bottom", end: "bottom top", scrub: true } });
+
+          gsap.utils.toArray("#grid .card").forEach(function (card) {
+            gsap.from(card, { opacity: 0, y: 80, duration: 1, ease: "power3.out", scrollTrigger: { trigger: card, start: "top 92%" } });
+          });
+          ScrollTrigger.refresh();
+        }
+      } catch (e) { reveal(); }
+      // filet de sécurité : jamais de titre invisible
+      setTimeout(reveal, 3600);
 
       // effet lampe-torche
       var flash = document.getElementById("flash");
