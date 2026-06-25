@@ -135,6 +135,19 @@ h1, h2, h3, .title-font { font-family: var(--display); font-weight: 400; }
 .detail__cap h3 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-style: italic; color: var(--forest-dark); margin: 8px 0 12px; }
 .detail__cap p:last-child { color: #3a443a; }
 
+/* ============ 4 bis · QUI VOUS PARLE ? ============ */
+.voice { background: var(--ivory); color: var(--forest-dark); padding: clamp(40px, 8vh, 110px) 0 clamp(60px, 11vh, 140px); }
+.voice-grid { display: grid; grid-template-columns: minmax(220px, 360px) 1fr; gap: clamp(30px, 5vw, 80px); align-items: center; }
+.voice-cameo img { object-position: center 14%; }
+.voice-mono { display: none; }
+.voice-cameo.is-fallback { display: grid; place-items: center; background: var(--forest-light); }
+.voice-cameo.is-fallback .voice-mono { display: grid; place-items: center; font-family: var(--display); font-size: clamp(3rem, 7vw, 4.4rem); color: var(--gold); }
+.voice-text .eyebrow { color: var(--forest-light); font-weight: 600; }
+.voice-text h2 { font-family: var(--display); font-weight: 500; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.04; color: var(--forest-light); margin: 8px 0 18px; }
+.voice-text p { font-size: 1.18rem; line-height: 1.7; color: #2c352c; max-width: 56ch; margin-bottom: 14px; }
+.voice-sign { font-family: var(--display); font-style: italic; font-size: 1.7rem; color: var(--gold); margin-top: 2px; }
+.voice-text .btn { margin-top: 14px; }
+
 /* ============ 5 · LAMPE-TORCHE (confidence de la guide) ============ */
 .flash { position: relative; min-height: 90vh; display: grid; place-items: center; background: var(--forest-dark); cursor: none; overflow: hidden; }
 .flash__layer { position: absolute; inset: 0; display: grid; place-items: center; padding: 0 var(--gutter); text-align: center; }
@@ -208,6 +221,8 @@ h1, h2, h3, .title-font { font-family: var(--display); font-weight: 400; }
   .editorial-aside { text-align: center; border-right: 0; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); padding: 16px 0; }
   .cameo { max-width: 340px; margin: 0 auto; }
   .detail__inner { grid-template-columns: 1fr; }
+  .voice-grid { grid-template-columns: 1fr; text-align: center; }
+  .voice-text p { margin-left: auto; margin-right: auto; }
   .navbar__links a:not(.navbar__cta) { display: none; }
 }
 @media (max-width: 560px) {
