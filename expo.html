@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Tableau Vivant — exposition · un podcast mes petites visites</title>
+  <meta name="description" content="Le Second Empire en exposition numérique, autour du chef-d'œuvre de Winterhalter. Un podcast mes petites visites." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/expo.css" />
+</head>
+<body>
+
+  <!-- icônes -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7Z"/></symbol>
+    <symbol id="i-fwd" viewBox="0 0 24 24"><path d="M12 5V2l5 4-5 4V7a5 5 0 1 0 5 5h2a7 7 0 1 1-7-7Z"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- ============ TOGGLE DE VERSION ============ -->
+  <div class="vswitch" role="group" aria-label="Choisir la version">
+    <a class="vswitch__opt" href="index.html">Édition</a>
+    <a class="vswitch__opt" href="salon.html">Parcours</a>
+    <a class="vswitch__opt" href="studio.html">Studio</a>
+    <a class="vswitch__opt" href="immersif.html">Immersif</a>
+    <a class="vswitch__opt" href="epure.html">Épure</a>
+    <a class="vswitch__opt" href="carte.html">Carte</a>
+    <a class="vswitch__opt" href="ecrin.html">Écrin</a>
+    <a class="vswitch__opt is-active" href="expo.html" aria-current="true">Expo</a>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="top">
+    <a class="navbar__logo" href="#top">mes petites visites</a>
+    <div class="navbar__links">
+      <a href="#tableau">L'œuvre</a>
+      <a href="#fragments">Les épisodes</a>
+      <a href="#qui">Qui vous parle ?</a>
+      <a class="navbar__cta" href="#abonnement">S'abonner</a>
+    </div>
+  </nav>
+
+  <!-- ============ 1 · LE VERNISSAGE (hero) ============ -->
+  <section id="hero">
+    <div class="hero-bg"><img data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, par Franz Xaver Winterhalter, 1855" onerror="this.style.display='none'" /></div>
+    <div class="hero-content">
+      <span class="hero-kicker reveal-text">Exposition sonore · mes petites visites</span>
+      <h1 class="hero-title reveal-text">Le Second <i>Empire</i></h1>
+      <p class="hero-sub reveal-text">Une exploration sonore du chef-d'œuvre de Franz Xaver Winterhalter (1855) et de l'intimité de la cour de l'Impératrice Eugénie.</p>
+      <div class="hero-actions reveal-text">
+        <button class="btn" id="hero-listen" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter l'épisode 1</button>
+        <a class="btn" href="#fragments">Voir les épisodes</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · L'ANALYSE (éditorial) ============ -->
+  <section id="editorial" class="container">
+    <div class="ed-grid">
+      <div class="ed-text">
+        <p class="kicker gsap-up" id="feat-cat">Épisode 1 · Cour &amp; étiquette</p>
+        <h2 class="gsap-up" id="feat-title">Les murmures du salon vert</h2>
+        <p class="gsap-up"><span class="lettrine">L</span>e génie de Winterhalter tient dans sa façon de faire dialoguer la rigidité mondaine et la souplesse de la nature : les crinolines se déploient comme de vastes corolles au cœur d'un écrin de verdure.</p>
+        <p class="gsap-up" id="feat-desc"></p>
+        <button class="btn btn--gold gsap-up" id="feat-play" type="button"><svg class="ico"><use href="#i-play"/></svg> Écouter maintenant</button>
+      </div>
+      <figure class="ed-image">
+        <img data-painting src="assets/img/eugenie.jpg" alt="Détail de l'œuvre" style="object-position:center 30%" onerror="this.style.display='none'" />
+        <figcaption>F. X. Winterhalter — détail, 1855</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 3 · L'ŒUVRE ANNOTÉE ============ -->
+  <section class="plate" id="tableau">
+    <div class="plate__head gsap-up"><h2>L'œuvre, point par point</h2></div>
+    <div class="plate__inner">
+      <figure class="plate__art" aria-label="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855">
+        <img class="media" data-painting src="assets/img/eugenie.jpg" alt="L'Impératrice Eugénie entourée de ses dames d'honneur, Winterhalter, 1855" onerror="this.style.display='none'" />
+        <button class="hotspot" style="left:50%; top:54%" data-title="La robe émeraude" data-cap="Au centre, l'Impératrice : la seule en vert profond. Une couleur de souveraineté qui ancre toute la composition autour d'elle." aria-label="La robe émeraude">1</button>
+        <button class="hotspot" style="left:24%; top:78%" data-title="Les fleurs du premier plan" data-cap="Chèvrefeuille, lilas et violettes ne sont pas décoratifs : ce sont des allégories de fidélité et de mémoire, signées par le peintre." aria-label="Les fleurs">2</button>
+        <button class="hotspot" style="left:75%; top:46%" data-title="Le ruban bleu" data-cap="Le bleu des rubans répond au ciel : Winterhalter orchestre une harmonie de cour, chaque dame placée selon un protocole strict." aria-label="Le ruban bleu">3</button>
+        <button class="hotspot" style="left:88%; top:82%" data-title="La signature" data-cap="Discrètement, l'artiste signe la scène d'apparat la plus célèbre du règne — une commande qui fixera l'image de la cour." aria-label="La signature">4</button>
+      </figure>
+      <div class="plate__cap" id="tableau-cap">
+        <p class="kicker">Le détail</p>
+        <h3 id="cap-title">Choisissez un détail</h3>
+        <p id="cap-text">Touchez une pastille sur l'œuvre pour révéler sa lecture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · FRAGMENTS (épisodes) ============ -->
+  <section class="fragments" id="fragments">
+    <div class="fragments__head gsap-up">
+      <h2>Fragments d'éternité</h2>
+      <p>Chaque fragment est un épisode. Survolez, puis écoutez.</p>
+    </div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </section>
+
+  <!-- ============ 5 · QUI VOUS PARLE ? ============ -->
+  <section class="voice" id="qui">
+    <div class="voice__inner">
+      <figure class="voice__portrait">
+        <div class="voice__frame">
+          <img src="assets/img/sophie.jpg" alt="Sophie Lefaure van Moorsel, guide-conférencière et voix de la série" onerror="(function(im){var ex=['assets/img/sophie.jpeg','assets/img/sophie.png','assets/img/sophie.webp'];var n=+(im.dataset.i||0);if(n&lt;ex.length){im.dataset.i=n+1;im.src=ex[n];}else{var f=im.closest('.voice__portrait');if(f)f.classList.add('is-fallback');im.remove();}})(this)" />
+          <span class="voice__mono" aria-hidden="true">SL</span>
+        </div>
+      </figure>
+      <div class="voice__text">
+        <p class="kicker gsap-up">Qui vous parle ?</p>
+        <h2 class="gsap-up">Sophie Lefaure van Moorsel</h2>
+        <p class="gsap-up">C'est moi qui vous accompagne, épisode après épisode. Guide-conférencière, fille d'architecte, j'ai fait de Paris et du Second Empire mon terrain de jeu.</p>
+        <p class="gsap-up">Après des études de sciences politiques et des années à porter la parole de grandes institutions, j'ai choisi de raconter la ville autrement — par ses salons, ses portraits et ses petites histoires, avec une pointe d'humour belge.</p>
+        <p class="voice__sign gsap-up">Sophie</p>
+        <a class="btn gsap-up" href="tel:+33610468024">06 10 46 80 24</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · CITATION ============ -->
+  <section class="atelier">
+    <div class="container">
+      <div class="atelier__rule"></div>
+      <h2 class="atelier__quote gsap-up">« La beauté de cette toile ne tient pas aux visages, mais au bruit silencieux de la soie froissée sur l'herbe. »</h2>
+      <p class="atelier__author gsap-up">— Chronique du Second Empire</p>
+    </div>
+  </section>
+
+  <!-- ============ 7 · LE CADRE (footer) ============ -->
+  <footer class="frame-foot" id="abonnement">
+    <div class="container">
+      <h2 class="frame-foot__logo">mes petites visites</h2>
+      <p class="frame-foot__sub">Recevez chaque épisode, dès sa parution.</p>
+      <form class="frame-foot__form" onsubmit="return false;">
+        <input type="email" placeholder="votre adresse e-mail" aria-label="Votre adresse e-mail" />
+        <button class="btn" type="submit">S'abonner</button>
+      </form>
+      <nav class="frame-foot__links" aria-label="Liens">
+        <a href="#fragments">Les épisodes</a>
+        <a href="#tableau">L'œuvre</a>
+        <a href="tel:+33610468024">Correspondance</a>
+      </nav>
+      <p class="frame-foot__fine">Œuvre : F. X. Winterhalter, 1855 · domaine public</p>
+    </div>
+  </footer>
+
+  <!-- ============ POP-UP ============ -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__scrim" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="m-title">
+      <button class="modal__close" id="m-close" data-close aria-label="Fermer"><svg class="ico"><use href="#i-close"/></svg></button>
+      <div class="modal__art"><canvas id="modal-canvas" data-rw="dark" width="900" height="600" aria-hidden="true"></canvas></div>
+      <div class="modal__panel">
+        <p class="modal__cat" id="m-cat">Épisode 1 · Cour &amp; étiquette</p>
+        <h2 class="modal__title" id="m-title">Les murmures du salon vert</h2>
+        <p class="modal__desc" id="m-desc"></p>
+        <div class="modal__track" id="m-track"><div class="modal__fill" id="m-fill"></div></div>
+        <div class="modal__time"><span id="m-cur">00:00</span><span id="m-tot">00:00</span></div>
+        <div class="modal__controls">
+          <button class="ctrl" id="m-back" aria-label="Reculer de 15 secondes"><svg class="ico"><use href="#i-back"/></svg><i>15</i></button>
+          <button class="ctrl ctrl--main" id="m-toggle" aria-label="Lecture / pause"><svg class="ico"><use href="#i-play"/></svg></button>
+          <button class="ctrl" id="m-fwd" aria-label="Avancer de 15 secondes"><svg class="ico"><use href="#i-fwd"/></svg><i>15</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BANDE D'ÉCOUTE ============ -->
+  <aside class="bar" id="bar">
+    <div class="bar__fill" id="bar-fill"></div>
+    <button class="bar__open" id="bar-open" aria-label="Ouvrir le lecteur">
+      <span class="bar__thumb"><img data-painting src="assets/img/eugenie.jpg" alt="" onerror="this.style.display='none'" /></span>
+      <span class="bar__info"><span class="bar__title" id="bar-title">—</span><span class="bar__cat" id="bar-cat">—</span></span>
+      <svg class="ico bar__chev"><use href="#i-chev"/></svg>
+    </button>
+    <button class="bar__toggle" id="bar-toggle" aria-label="Lecture / pause"><svg class="ico"><use href="#i-play"/></svg></button>
+    <button class="bar__close" id="bar-close" aria-label="Arrêter"><svg class="ico"><use href="#i-close"/></svg></button>
+    <audio id="audio" preload="none"></audio>
+  </aside>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/episodes.js"></script>
+  <script src="assets/js/visualizer.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    (function () {
+      try {
+        if (!window.gsap) return;
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".reveal-text", { y: 50, opacity: 0, duration: 1.4, stagger: .16, ease: "power4.out", delay: .2 });
+        gsap.to(".hero-bg img", { yPercent: 14, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
+        gsap.utils.toArray(".gsap-up").forEach(function (el) {
+          gsap.from(el, { y: 42, opacity: 0, duration: 1.1, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 88%" } });
+        });
+        gsap.to(".ed-image img", { yPercent: -16, ease: "none", scrollTrigger: { trigger: ".ed-image", start: "top bottom", end: "bottom top", scrub: true } });
+        gsap.utils.toArray("#grid .card").forEach(function (el, i) {
+          gsap.from(el, { scale: .96, opacity: 0, duration: 1.2, ease: "expo.out", delay: (i % 3) * 0.1, scrollTrigger: { trigger: el, start: "top 90%" } });
+        });
+        ScrollTrigger.refresh();
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
